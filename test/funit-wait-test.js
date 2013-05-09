@@ -1,6 +1,6 @@
 (function(t) {
 
-	t.module('FUnit Wait');
+	t.module('FUnitWait');
 
 	t.test("test wait", 2, function() {
 		var check = false;
@@ -12,6 +12,27 @@
 			return check;
 		}).done(function() {
 			t.ok(check, 'check is true after waiting');
+		});
+	});
+	
+	t.test("test wait with array", 4, function() {
+		var first = false;
+		var second = false;
+		setTimeout(function() {
+			first = true;
+			setTimeout(function() {
+				second = true;
+			}, 1);
+		}, 1);
+		t.ok(!first, 'first is false before waiting');
+		t.ok(!second, 'second is false before waiting');
+		t.waitFor([function() {
+			return first;
+		}, function() {
+			return second;
+		}]).done(function() {
+			t.ok(first, 'first is true before waiting');
+			t.ok(second, 'second is true before waiting');
 		});
 	});
 	

@@ -1,10 +1,23 @@
 (function(t, $) {
 
 	function waitFor(wait) {
+		
+		if(typeof(wait) == 'function') {
+			return waitFor([wait]);
+		}
+		
+		function check(entry) {
+			for(var i = 0; i < entry.wait.length; i++) {
+				if(!entry.wait[i]()) {
+					return false;
+				}
+			}
+			return true;
+		}
 
 		function makeWait(entry) {
 			var time = entry._time - (new Date().getTime() - entry.init);
-			if (time >= 0 && !entry.wait()) {
+			if (time >= 0 && !check(entry)) {
 				if (!entry.stopped) {
 					t.stop();
 					entry.stopped = true;
@@ -32,7 +45,7 @@
 				this._timeout = this._timeout || function() {
 					throw 'timeout';
 				}
-				this._time = this._time || 10000;
+				this._time = this._time || 5000;
 				makeWait(this);
 				return this;
 			},

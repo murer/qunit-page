@@ -1,6 +1,6 @@
 (function(t, $) {
 
-	t.module('FUnit Proof of Concepts');
+	t.module('FUnitPOC');
 
 	t.test("simple", function() {
 		t.equal(1, 1);
