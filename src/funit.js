@@ -1,0 +1,3 @@
+(function(t, $) {
+
+})(QUnit, jQuery);
