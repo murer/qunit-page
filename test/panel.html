@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>FUnit Test</title>
+  <link rel="stylesheet" href="../lib/qunit.css">
+  <script src="../lib/jquery.js"></script>
+  <script language="javascript">
+  	(function($) {
+		$(window).ready(function() {
+	  		var count = 1;
+	  		$('.ajax').click(function() {
+	  			$('.result').text('count: ' + count)
+				count++;
+				return false;
+		  	});
+	  		$('.result').text('count: ' + count);
+		});
+  	})(jQuery);
+  </script>
+</head>
+<body>
+	<h1>Panel</h1>
+	<a href="other.html">other</a>
+	<a href="#" class="ajax">ajax</a>
+	<div class="result">
+		Initial
+	</div>
+</body>
+</html>
