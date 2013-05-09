@@ -4,4 +4,4 @@ FUnit JS
 
 ## Test
 
-http://murer.github.io/funit/test/test.html
+http://murer.github.com/funit/test/test.html
