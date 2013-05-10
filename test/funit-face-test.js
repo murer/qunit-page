@@ -4,21 +4,21 @@
 
 	t.faceTest("face test raw mode", function(face) {
 
-		face.step('open page').open('./panel.html');
-
 		function selector(path) {
-			return function(window, $) {
-				var ret = $(path);
+			return function() {
+				var ret = face.$(path);
 				return ret.length ? ret : false;
 			}
 		}
 
-		face.step('go ajax').wait([ selector('.ajax'), selector('.result') ]).done(function(window, $, link) {
-			t.equal($('.result').text(), 'Initial');
+		face.open('./panel.html');
+
+		face.step([ selector('.ajax'), selector('.result') ]).done(function(link) {
+			t.equal(face.$('.result').text(), 'Initial');
 			link.click();
 		});
 
-		face.step().wait(selector('.result:contains("Count: 1")')).done(function(window, $, result) {
+		face.step(selector('.result:contains("Count: 1")')).done(function(result) {
 			t.equal(result.text(), 'Count: 1');
 		});
 
