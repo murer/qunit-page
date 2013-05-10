@@ -8,13 +8,14 @@
   <script language="javascript">
   	(function($) {
 		$(window).ready(function() {
-	  		var count = 1;
+	  		var count = 0;
 	  		$('.ajax').click(function() {
-	  			$('.result').text('count: ' + count)
-				count++;
+	  			$.get('other.html?count=' + count, function() {
+		  			count++;
+		  			$('.result').text('Count: ' + count)
+	  			});
 				return false;
 		  	});
-	  		$('.result').text('count: ' + count);
 		});
   	})(jQuery);
   </script>
@@ -24,7 +25,7 @@
 	<a href="other.html">other</a>
 	<a href="#" class="ajax">ajax</a>
 	<div class="result">
-		Initial
+		Count: 0
 	</div>
 </body>
 </html>
