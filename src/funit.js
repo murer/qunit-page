@@ -85,6 +85,12 @@
 	extend(Page.prototype, {
 		step : function(name, func) {
 			this.steps.push({ name: name, func: func });
+		},
+		fixture : function() {
+			return $('#qunit-fixture');
+		},
+		frame : function() {
+			return this.fixture().find('iframe');
 		}
 	});
 	
@@ -106,6 +112,7 @@
 		QUnit.test(name, function() {
 			var page = new Page();
 			page.name = name;
+			page.fixture().html('<iframe />');
 			func(page);
 			executeTest(page);
 		});

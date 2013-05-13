@@ -23,6 +23,11 @@
 		});
 
 	});
+	
+	t.pageTest("step iframe prepare", function(page) {
+		equal(page.fixture().find('iframe').length, 1);
+		equal(page.frame().length, 1);
+	});
 
 	// t.pageTest("face test raw mode", function(face) {
 
