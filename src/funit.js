@@ -108,6 +108,9 @@
 		    }
 		    return window[name];
 	    },
+	    open : function(url) {
+		    this.window().location = url;
+	    },
 	    click : function(element) {
 		    element = $(element)
 		    if (!element.length) {
@@ -120,7 +123,7 @@
 			    oEvent.initMouseEvent("click", true, true, window, 1, 1, 1, 1, 1, false, false, false, false, 0, element);
 			    element.dispatchEvent(oEvent);
 		    } else if (document.fireEvent) { // IE
-		    	element.click();
+			    element.click();
 		    }
 	    }
 	});
