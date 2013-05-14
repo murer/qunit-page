@@ -216,6 +216,7 @@
 	function pageTest(name, func) {
 		QUnit.test(name, function() {
 			var page = new Page();
+			QUnit.page = page;
 			page.name = name;
 			prepareFrame(page);
 			func(page);
