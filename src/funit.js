@@ -8,8 +8,8 @@
 		if (arguments.length >= 2) {
 			for ( var i = 1; i < arguments.length; i++) {
 				var arg = arguments[i];
-				if(arg) {
-					for(var k in arg) {
+				if (arg) {
+					for ( var k in arg) {
 						target[k] = arg[k];
 					}
 				}
@@ -83,31 +83,56 @@
 		this.steps = [];
 	}
 	extend(Page.prototype, {
-		step : function(name, func) {
-			this.steps.push({ name: name, func: func });
-		},
-		fixture : function() {
-			return $('#qunit-fixture');
-		},
-		frame : function() {
-			return this.fixture().find('iframe');
-		},
-		window : function() {
-			return this.frame()[0].contentWindow;
-		},
-		retry : function() {
-			this._retry = true;
-		}
+	    step : function(name, func) {
+		    this.steps.push({
+		        name : name,
+		        func : func
+		    });
+	    },
+	    fixture : function() {
+		    return $('#qunit-fixture');
+	    },
+	    frame : function() {
+		    return this.fixture().find('iframe');
+	    },
+	    window : function() {
+		    return this.frame()[0].contentWindow;
+	    },
+	    retry : function() {
+		    this._retry = true;
+	    },
+	    global : function(name) {
+		    var window = this.window();
+		    if (name == 'window') {
+			    return window;
+		    }
+		    return window[name];
+	    },
+	    click : function(element) {
+		    element = $(element)
+		    if (!element.length) {
+			    throw 'no element to click';
+		    }
+		    element = element[0];
+		    var document = element.ownerDocument;
+		    if (document.dispatchEvent) { // W3C
+			    var oEvent = document.createEvent("MouseEvents");
+			    oEvent.initMouseEvent("click", true, true, window, 1, 1, 1, 1, 1, false, false, false, false, 0, element);
+			    element.dispatchEvent(oEvent);
+		    } else if (document.fireEvent) { // IE
+		    	element.click();
+		    }
+	    }
 	});
-	
+
 	function executeTest(page) {
-		if(!page.steps.length) {
-			return;	
+		if (!page.steps.length) {
+			return;
 		}
 		var step = page.steps.shift();
 		page._retry = false;
 		step.func(page);
-		if(page._retry) {
+		if (page._retry) {
 			page.steps.unshift(step);
 		}
 		setTimeout(function() {
@@ -116,12 +141,33 @@
 		}, 1);
 		QUnit.stop();
 	}
-	
+
+	function prepareFrame(page) {
+		page.fixture().html('<iframe />');
+		// page.frame().bind('load', function() {
+		// page.steps.unshift({
+		// func : function() {
+		// var $ = page.global('jQuery');
+		// if (!$) {
+		// return page.retry();
+		// }
+		// $(page.window().document).click(function(evt) {
+		// var target = $(evt.target);
+		// if (target.is('a[href]')) {
+		// console.info('x', evt.target);
+		// page.window().location = target.attr('href');
+		// }
+		// });
+		// }
+		// });
+		// });
+	}
+
 	function pageTest(name, func) {
 		QUnit.test(name, function() {
 			var page = new Page();
 			page.name = name;
-			page.fixture().html('<iframe />');
+			prepareFrame(page);
 			func(page);
 			executeTest(page);
 		});
