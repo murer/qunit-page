@@ -2,7 +2,7 @@
 
 	t.module('FUnitWaitPace');
 
-	t.pageTest("page ajax raw mode", function(page) {
+	t.pageTest("page wait ajax", function(page) {
 
 		page.open('panel.html');
 
@@ -21,6 +21,25 @@
 
 		page.step('checking count 2', [ '.result:not(:contains("Loading"))' ], function(result) {
 			t.equal(result.text(), 'Count: 2');
+		});
+
+	});
+	
+	t.pageTest("page wait link", function(page) {
+
+		page.open('panel.html');
+		
+		page.step('clicking link', [ '.other' ], function(other) {
+			page.click(other);
+		});
+
+		page.step('checking other', [ 'h1:contains("Other")', '.panel'], function(title, link) {
+			t.equal(title.text(), 'Other');
+			page.click(link);
+		});
+
+		page.step('checking panel', ['h1:contains("Panel")'], function(title) {
+			t.equal(title.text(), 'Panel');
 		});
 
 	});
