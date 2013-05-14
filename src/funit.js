@@ -109,7 +109,18 @@
 		    return window[name];
 	    },
 	    open : function(url) {
+		    this.loaded = false;
 		    this.window().location = url;
+		    (function(page) {
+		    	page.steps.unshift({
+		    		func: function() {
+		    			if(!page.loaded) {
+		    				return page.retry();
+		    			}
+		    			console.info("loaded");
+		    		}
+		    	})
+		    })(this);
 	    },
 	    click : function(element) {
 		    element = $(element)
@@ -147,23 +158,9 @@
 
 	function prepareFrame(page) {
 		page.fixture().html('<iframe />');
-		// page.frame().bind('load', function() {
-		// page.steps.unshift({
-		// func : function() {
-		// var $ = page.global('jQuery');
-		// if (!$) {
-		// return page.retry();
-		// }
-		// $(page.window().document).click(function(evt) {
-		// var target = $(evt.target);
-		// if (target.is('a[href]')) {
-		// console.info('x', evt.target);
-		// page.window().location = target.attr('href');
-		// }
-		// });
-		// }
-		// });
-		// });
+		page.frame().bind('load', function() {
+			page.loaded = true;
+		});
 	}
 
 	function pageTest(name, func) {
