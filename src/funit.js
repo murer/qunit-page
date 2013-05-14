@@ -278,6 +278,7 @@
 	//
 	QUnit.pageTest = pageTest;
 	QUnit.waitFor = waitFor;
+	QUnit.Page = Page;
 
 	return QUnit;
 
