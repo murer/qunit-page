@@ -1,31 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <title>FUnit Test</title>
-  <link rel="stylesheet" href="../lib/qunit.css">
-  <script src="../lib/jquery.js"></script>
-  <script language="javascript">
-  	(function($) {
-		$(window).ready(function() {
-	  		var count = 0;
-	  		$('.ajax').click(function() {
-	  			$.get('other.html?count=' + count, function() {
-		  			count++;
-		  			$('.result').text('Count: ' + count)
-	  			});
-				return false;
-		  	});
-		});
-  	})(jQuery);
-  </script>
+<meta charset="utf-8">
+<title>FUnit Test</title>
+<link rel="stylesheet" href="../lib/qunit.css">
+<script src="../lib/jquery.js"></script>
+<script type="text/javascript">
+	(function($) {
+	    $(window).ready(function() {
+		    var count = 0;
+		    $('.ajax').click(function() {
+			    $('.result').text('Loading');
+			    $.ajax({
+			        url : 'other.html?count=' + count,
+			        success : function() {
+				        count++;
+				        $('.result').text('Count: ' + count)
+			        }
+			    });
+			    return false;
+		    });
+	    });
+    })(jQuery);
+</script>
 </head>
 <body>
 	<h1>Panel</h1>
 	<a href="other.html">other</a>
 	<a href="#" class="ajax">ajax</a>
-	<div class="result">
-		Count: 0
-	</div>
+	<div class="result">Count: 0</div>
 </body>
 </html>

@@ -91,6 +91,12 @@
 		},
 		frame : function() {
 			return this.fixture().find('iframe');
+		},
+		window : function() {
+			return this.frame()[0].contentWindow;
+		},
+		retry : function() {
+			this._retry = true;
 		}
 	});
 	
@@ -99,8 +105,11 @@
 			return;	
 		}
 		var step = page.steps.shift();
-		console.info('executing', step.name);
+		page._retry = false;
 		step.func(page);
+		if(page._retry) {
+			page.steps.unshift(step);
+		}
 		setTimeout(function() {
 			QUnit.start();
 			executeTest(page);
