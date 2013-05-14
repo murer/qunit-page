@@ -7,12 +7,9 @@
 <script src="../lib/jquery.js"></script>
 <script type="text/javascript">
 	(function($) {
-		console.info('preparing');
 	    $(window).ready(function() {
-	    	console.info('ready');
 		    var count = 0;
 		    $('.ajax').click(function() {
-		    	console.info('clicked');	
 			    $('.result').text('Loading');
 			    $.ajax({
 			        url : 'other.html?count=' + count,

@@ -79,15 +79,62 @@
 		};
 	}
 
+	function getAllDeps(page, deps) {
+		function prepareDep(dep) {
+			if (typeof (dep) == 'string') {
+				return function() {
+					var $ = page.global('jQuery');
+					if(!$) {
+						return null;
+					}
+					var ret = $(dep);
+					return !ret.length ? null : ret;
+				};
+			}
+			return dep;
+		}
+		var ret = [];
+		for ( var i = 0; i < deps.length; i++) {
+			var dep = deps[i];
+			dep = prepareDep(dep);
+			ret[i] = dep();
+			if (!ret[i]) {
+				return ret;
+			}
+		}
+		return ret;
+	}
+
+	function prepareStep(page, name, deps, func) {
+		if (!func) {
+			if (!deps) {
+				throw 'step function is required';
+			}
+			return prepareStep(page, name, [], deps);
+		}
+		return {
+		    name : name,
+		    func : function() {
+			    var objs = [];
+			    if (deps.length) {
+				    var objs = getAllDeps(page, deps);
+				    for ( var i = 0; i < objs.length; i++) {
+					    if (!objs[i]) {
+						    return page.retry();
+					    }
+				    }
+			    }
+			    func.apply(this, objs);
+		    }
+		}
+	}
+
 	function Page() {
 		this.steps = [];
 	}
 	extend(Page.prototype, {
-	    step : function(name, func) {
-		    this.steps.push({
-		        name : name,
-		        func : func
-		    });
+	    step : function(name, deps, func) {
+		    this.steps.push(prepareStep(this, name, deps, func));
 	    },
 	    fixture : function() {
 		    return $('#qunit-fixture');
@@ -112,14 +159,17 @@
 		    this.loaded = false;
 		    this.window().location = url;
 		    (function(page) {
-		    	page.steps.unshift({
-		    		func: function() {
-		    			if(!page.loaded) {
-		    				return page.retry();
-		    			}
-		    			console.info("loaded");
-		    		}
-		    	})
+			    page.steps.unshift({
+				    func : function() {
+					    if (!page.loaded) {
+						    return page.retry();
+					    }
+					    var $ = page.global('jQuery');
+					    if (!$) {
+						    return page.retry();
+					    }
+				    }
+			    })
 		    })(this);
 	    },
 	    click : function(element) {
