@@ -4,6 +4,9 @@ FUnit JS
 
 ## Test
 
+http://murer.github.com/funit/test/test.html
+
+## Sample
 
     <!DOCTYPE html>
     <html>
@@ -24,8 +27,6 @@ FUnit JS
       <div id="qunit-fixture"></div>
     </body>
     </html>
-
-http://murer.github.com/funit/test/test.html
 
 http://murer.github.com/funit/test/funit-page-wait-test.js
 
