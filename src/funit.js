@@ -56,26 +56,26 @@
 		}
 
 		return {
-		    wait : wait,
-		    done : function(callback) {
-			    this._done = callback;
-			    this.init = new Date().getTime();
-			    this._timeout = this._timeout || function() {
-				    throw 'timeout';
-			    }
-			    this._time = this._time || 5000;
-			    makeWait(this);
-			    return this;
-		    },
-		    timeout : function(callback, time) {
-			    if (typeof (callback) == 'number') {
-				    time = callback;
-				    callback = null;
-			    }
-			    this._timeout = callback;
-			    this._time = time;
-			    return this;
-		    }
+			wait : wait,
+			done : function(callback) {
+				this._done = callback;
+				this.init = new Date().getTime();
+				this._timeout = this._timeout || function() {
+					throw 'timeout';
+				}
+				this._time = this._time || 5000;
+				makeWait(this);
+				return this;
+			},
+			timeout : function(callback, time) {
+				if (typeof (callback) == 'number') {
+					time = callback;
+					callback = null;
+				}
+				this._timeout = callback;
+				this._time = time;
+				return this;
+			}
 		};
 	}
 
@@ -84,7 +84,7 @@
 			if (typeof (dep) == 'string') {
 				return function() {
 					var $ = page.global('jQuery');
-					if(!$) {
+					if (!$) {
 						return null;
 					}
 					var ret = $(dep);
@@ -113,80 +113,112 @@
 			return prepareStep(page, name, [], deps);
 		}
 		return {
-		    name : name,
-		    func : function() {
-			    var objs = [];
-			    if (deps.length) {
-				    var objs = getAllDeps(page, deps);
-				    for ( var i = 0; i < objs.length; i++) {
-					    if (!objs[i]) {
-						    return page.retry();
-					    }
-				    }
-			    }
-			    func.apply(this, objs);
-		    }
+			name : name,
+			func : function() {
+				var objs = [];
+				if (deps.length) {
+					var objs = getAllDeps(page, deps);
+					for ( var i = 0; i < objs.length; i++) {
+						if (!objs[i]) {
+							return page.retry();
+						}
+					}
+				}
+				func.apply(this, objs);
+			}
+		}
+	}
+
+	function waitReady(page) {
+		return function() {
+			if (!page.loaded) {
+				return page.retry();
+			}
+			var $ = page.global('jQuery');
+			if (!$) {
+				return page.retry();
+			}
+			if (!$.isReady) {
+				return page.retry();
+			}
+			if (!page.window().ready) {
+				return page.retry();
+			}
 		}
 	}
 
 	function Page() {
 		this.steps = [];
 	}
+
+	Page.befores = [];
+	Page.before = function(before) {
+		Page.befores.push(function() {
+			before(QUnit.page);
+		});
+	}
+
+	Page.fn = Page.prototype;
 	extend(Page.prototype, {
-	    step : function(name, deps, func) {
-		    this.steps.push(prepareStep(this, name, deps, func));
-	    },
-	    fixture : function() {
-		    return $('#qunit-fixture');
-	    },
-	    frame : function() {
-		    return this.fixture().find('iframe');
-	    },
-	    window : function() {
-		    return this.frame()[0].contentWindow;
-	    },
-	    retry : function() {
-		    this._retry = true;
-	    },
-	    global : function(name) {
-		    var window = this.window();
-		    if (name == 'window') {
-			    return window;
-		    }
-		    return window[name];
-	    },
-	    open : function(url) {
-		    this.loaded = false;
-		    this.window().location = url;
-		    (function(page) {
-			    page.steps.unshift({
-				    func : function() {
-					    if (!page.loaded) {
-						    return page.retry();
-					    }
-					    var $ = page.global('jQuery');
-					    if (!$) {
-						    return page.retry();
-					    }
-				    }
-			    })
-		    })(this);
-	    },
-	    click : function(element) {
-		    element = $(element)
-		    if (!element.length) {
-			    throw 'no element to click';
-		    }
-		    element = element[0];
-		    var document = element.ownerDocument;
-		    if (document.dispatchEvent) { // W3C
-			    var oEvent = document.createEvent("MouseEvents");
-			    oEvent.initMouseEvent("click", true, true, window, 1, 1, 1, 1, 1, false, false, false, false, 0, element);
-			    element.dispatchEvent(oEvent);
-		    } else if (document.fireEvent) { // IE
-			    element.click();
-		    }
-	    }
+		step : function(name, deps, func) {
+			this.steps.push(prepareStep(this, name, deps, func));
+		},
+		stop : function() {
+			this._stop = true;
+		},
+		start : function() {
+			this._stop = false;
+			QUnit.start();
+			executeTest(this);
+		},
+		intervane : function(step) {
+			this.steps.unshift({
+				func : step
+			});
+		},
+		fixture : function() {
+			return $('#qunit-fixture');
+		},
+		frame : function() {
+			return this.fixture().find('iframe');
+		},
+		window : function() {
+			return this.frame()[0].contentWindow;
+		},
+		retry : function() {
+			this._retry = true;
+		},
+		global : function(name) {
+			var window = this.window();
+			if (name == 'window') {
+				return window;
+			}
+			return window[name];
+		},
+		open : function(url) {
+			(function(page) {
+				page.step('open', function() {
+					page.loaded = false;
+					page.window().location = url;
+					page.intervane(waitReady(page));
+				});
+			})(this);
+		},
+		click : function(element) {
+			element = $(element)
+			if (!element.length) {
+				throw 'no element to click';
+			}
+			element = element[0];
+			var document = element.ownerDocument;
+			if (document.dispatchEvent) { // W3C
+				var oEvent = document.createEvent("MouseEvents");
+				oEvent.initMouseEvent("click", true, true, window, 1, 1, 1, 1, 1, false, false, false, false, 0, element);
+				element.dispatchEvent(oEvent);
+			} else if (document.fireEvent) { // IE
+				element.click();
+			}
+		}
 	});
 
 	function executeTest(page) {
@@ -196,6 +228,10 @@
 		var step = page.steps.shift();
 		page._retry = false;
 		step.func(page);
+		if (page._stop) {
+			QUnit.stop();
+			return;
+		}
 		if (page._retry) {
 			page.steps.unshift(step);
 		}
@@ -210,7 +246,17 @@
 		page.fixture().html('<iframe />');
 		page.frame().bind('load', function() {
 			page.loaded = true;
+			$(page.window()).bind('unload', function() {
+				page.loaded = false;
+				page.intervane(waitReady(page));
+			});
 		});
+	}
+
+	function prepareBefore(page) {
+		for ( var i = 0; i < Page.befores.length; i++) {
+			page.step('before', Page.befores[i]);
+		}
 	}
 
 	function pageTest(name, func) {
@@ -219,114 +265,12 @@
 			QUnit.page = page;
 			page.name = name;
 			prepareFrame(page);
+			prepareBefore(page);
 			func(page);
 			executeTest(page);
 		});
 	}
 
-	// function toArray(array) {
-	// var ret = [];
-	// for ( var i = 0; i < array.length; i++) {
-	// ret[i] = array[i];
-	// }
-	// return ret;
-	// }
-	//
-	// function prepareOpen(url) {
-	// return function(finish) {
-	// $('#frame').attr('src', url);
-	// waitFor(function() {
-	// var frame = $('#frame');
-	// return frame.length && frame[0].contentWindow
-	// && frame[0].contentWindow.jQuery;
-	// }, function() {
-	// makeCall(function(w, $) {
-	// $(w.document).click(function(evt) {
-	// var target = $(evt.target);
-	// if (target.is('a[href]')) {
-	// var href = target.attr('href');
-	// w.location = '' + w.location.pathname + href;
-	// }
-	// });
-	// finish();
-	// });
-	// });
-	// }
-	// }
-	//
-	// function convertWait(p) {
-	// if (typeof (p) == 'string') {
-	// return function() {
-	// var frame = $('#frame');
-	// return frame.length && frame[0].contentWindow
-	// && frame[0].contentWindow.jQuery
-	// && frame[0].contentWindow.jQuery(p).length;
-	// }
-	// }
-	// return p;
-	// }
-	//
-	// function makeCall(f) {
-	// var _window = $("#frame")[0].contentWindow;
-	// var _$ = _window.jQuery;
-	// f.call(_window, _window, _$);
-	// }
-	//
-	// function prepareStep(args) {
-	// return function(finish) {
-	// var w = null;
-	// var f = null;
-	// if (args.length == 1 && args[0].call) {
-	// f = args[0];
-	// }
-	// if (args.length == 2) {
-	// w = args[0];
-	// f = args[1];
-	// }
-	// if (!w) {
-	// makeCall(f);
-	// finish();
-	// return;
-	// }
-	// w = convertWait(w);
-	// waitFor(w, function() {
-	// makeCall(f);
-	// finish();
-	// });
-	// }
-	// }
-	//
-	// function prepareSteps(steps, fn) {
-	// fn(function(url) {
-	// steps.push(prepareOpen(url));
-	// }, function() {
-	// steps.push(prepareStep(toArray(arguments)));
-	// });
-	// return steps;
-	// }
-	//
-	// function consume(steps) {
-	// if (!steps.length) {
-	// return;
-	// }
-	// var step = steps.shift();
-	// step(function() {
-	// consume(steps);
-	// });
-	// }
-	//
-	// function createTest(steps) {
-	// $('#qunit-fixture').html('<iframe id="frame"></iframe>');
-	// consume(steps);
-	// }
-	//
-	// function pageTest(name, fn) {
-	// var steps = prepareSteps([], fn);
-	// test(name, function() {
-	// createTest(steps)
-	// });
-	// }
-	//
 	QUnit.pageTest = pageTest;
 	QUnit.waitFor = waitFor;
 	QUnit.Page = Page;
