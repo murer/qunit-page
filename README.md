@@ -1,10 +1,10 @@
 # funit
 
-FUnit JS
+QUnitPage JS
 
 ## Test
 
-http://murer.github.com/funit/test/test.html
+http://murer.github.com/qunit-page/test/test.html
 
 ## Sample
 
@@ -17,10 +17,10 @@ http://murer.github.com/funit/test/test.html
       <script src="../lib/jquery.js"></script>
       <script src="../lib/qunit.js"></script>
       <script src="../src/funit.js"></script>
-      <script src="funit-poc.js"></script>
-      <script src="funit-wait-test.js"></script>
-      <script src="funit-page-test.js"></script>   
-      <script src="funit-page-wait-test.js"></script>
+      <script src="qunit-page-poc.js"></script>
+      <script src="qunit-page-wait-test.js"></script>
+      <script src="qunit-page-face-test.js"></script>   
+      <script src="qunit-page-face-wait-test.js"></script>
     </head>
     <body>
       <div id="qunit"></div>
@@ -28,5 +28,5 @@ http://murer.github.com/funit/test/test.html
     </body>
     </html>
 
-http://murer.github.com/funit/test/funit-page-wait-test.js
+http://murer.github.com/qunit-page/test/
 
