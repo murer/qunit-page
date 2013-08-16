@@ -1,4 +1,4 @@
-# funit
+# QUnitPage
 
 QUnitPage JS
 
@@ -28,5 +28,5 @@ http://murer.github.com/qunit-page/test/test.html
     </body>
     </html>
 
-http://murer.github.com/qunit-page/test/
+https://github.com/murer/qunit-page/tree/master/test
 
