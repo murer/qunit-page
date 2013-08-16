@@ -30,3 +30,7 @@ http://murer.github.com/qunit-page/test/test.html
 
 https://github.com/murer/qunit-page/tree/master/test
 
+## Download
+
+http://murer.github.com/qunit-page/src/funit.html
+
