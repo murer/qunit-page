@@ -1,6 +1,6 @@
 (function(t) {
 
-	t.module('FUnitPage');
+	t.module('QUnitPage Face Test');
 
 	t.pageTest("page ajax raw mode", function(page) {
 

@@ -1,6 +1,6 @@
 (function(t) {
 
-	t.module('FUnitWaitPace');
+	t.module('QUnitPage Face Wait Test');
 
 	t.pageTest("page wait ajax", function(page) {
 

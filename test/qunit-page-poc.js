@@ -1,6 +1,6 @@
 (function(t, $) {
 
-	t.module('FUnitPOC');
+	t.module('QUnitPage POC');
 
 	t.test("simple", function() {
 		t.equal(1, 1);

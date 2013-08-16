@@ -1,6 +1,6 @@
 (function(t) {
 
-	t.module('FUnitWait');
+	t.module('QUnitPage Wait Test');
 
 	t.test("test wait", 2, function() {
 		var check = false;
