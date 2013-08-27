@@ -84,7 +84,7 @@ http://murer.github.com/qunit-page/test/test.html
     </body>
     </html>
 
-## Tests Sample
+## More Tests
 
 https://github.com/murer/qunit-page/tree/master/test
 
