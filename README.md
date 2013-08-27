@@ -34,7 +34,7 @@ QUnitPage JS
 		    // You can do a more complex waitFor passing a function.
 		    // this waitFor function will be called until it returns something 'valid in javascript'.
 		    // and the return will be the arugment to your step function.
-    		page.step('second step', [ '.link', function(page) {
+    		page.step('second step', [ '.link', function() {
     			return window.something;
     		} ], function(link, something) {
 				something.do();
