@@ -43,6 +43,11 @@ QUnitPage JS
     	});
     })(QUnit);
     
+### Bad Things
+
+  . Same origin policy applies. You need to put test.html at the same domain of the page you need to test.
+  . The open page has a implicity wait for 'ready' global at window. It means your page needs to set ready=true tell it is ready to qunit-page. 
+    
 ## Live Sample
 
 http://murer.github.com/qunit-page/test/test.html
