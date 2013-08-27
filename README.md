@@ -9,7 +9,7 @@ QUnitPage JS
 		// qunit module
 		t.module('first module');
 	
-		// you should pass a test function as you do with tradional qunit.
+		// you should pass a test function as you do with traditional qunit.
 		// you will receive a page where you can describe test steps.
 		t.pageTest("first test", function(page) {
 	
