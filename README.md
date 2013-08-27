@@ -19,7 +19,7 @@ QUnitPage JS
 			// first step. You need to pass two arguments.
 			// first argument is a array of elements to wait for. 
 			// second argument is your step function. 
-			// It receives the elements which you were waiting for.
+			// It receives the elements which you were waiting for (same order).
     		page.step([ '#some .css .path' ], function(element) {
 	    		element.click();
             });
