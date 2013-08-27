@@ -7,46 +7,46 @@ QUnitPage JS
     (function(t) {
     
     	// qunit module
-	    t.module('first module');
+	t.module('first module');
 	    
-	    // you should pass a test function as you do with tradional qunit.
-	    // you will receive a page where you can describe test steps.
+	// you should pass a test function as you do with tradional qunit.
+	// you will receive a page where you can describe test steps.
     	t.pageTest("first test", function(page) {
     	
     		// you want to open the page.
-			page.open('page.html');
+	        page.open('page.html');
 			
-			// first step. You need to pass two arguments.
-			// first argument is a array of elements to wait for. 
-			// second argument is your step function. 
-			// It receives the elements which you were waiting for (same order).
+		// first step. You need to pass two arguments.
+		// first argument is a array of elements to wait for. 
+		// second argument is your step function. 
+		// It receives the elements which you were waiting for (same order).
     		page.step([ '#some .css .path' ], function(element) {
-	    		element.click();
-            });
+	    	    element.click();
+                });
  		   
-		    // You can do more steps, of course.
-		    // you can pass a step name if you want as the first argument.
+		// You can do more steps, of course.
+		// you can pass a step name if you want as the first argument.
     		page.step('second step', [ '.link', '.element2' ], function(link, textbox) {
-	    		textbox.val('abc');
-	    		link.click();
-		    });
+	    	    textbox.val('abc');
+	    	    link.click();
+		});
 		    
-		    // You can do a more complex waitFor passing a function.
-		    // this waitFor function will be called until it returns something 'valid in javascript'.
-		    // and the return will be the arugment to your step function.
+		// You can do a more complex waitFor passing a function.
+		// this waitFor function will be called until it returns something 'valid in javascript'.
+		// and the return will be the arugment to your step function.
     		page.step('second step', [ '.link', function() {
-    			return window.something;
+    		    return window.something;
     		} ], function(link, something) {
-				something.do();
-				link.click();			
-		    });
+		    something.do();
+		    link.click();			
+		});
     	});
     })(QUnit);
     
 ### Bad Things
 
-  . Same origin policy applies. You need to put test.html at the same domain of the page you need to test.
-  . The open page has a implicity wait for 'ready' global at window. It means your page needs to set ready=true tell it is ready to qunit-page. 
+  * Same origin policy applies. You need to put test.html at the same domain of the page you want to test.
+  * The open page has a implicity wait for 'ready' global at window. It means your page needs to set ready=true tell it is ready to qunit-page. 
     
 ## Live Sample
 
