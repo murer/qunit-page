@@ -9,6 +9,7 @@ if ! ./target/lib/phantomjs-1.9.2-linux-i686/bin/phantomjs --version; then
 	wget https://phantomjs.googlecode.com/files/phantomjs-1.9.2-linux-i686.tar.bz2 -O phantomjs.tar.bz2
 	tar xjf phantomjs.tar.bz2
 	cd -
+	ls ./target/lib/phantomjs-1.9.2-linux-i686/bin/phantomjs
 	./target/lib/phantomjs-1.9.2-linux-i686/bin/phantomjs --version
 fi
 
