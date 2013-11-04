@@ -20,7 +20,7 @@
 		});
 
 		page.step('checking count 2', [ '.result:not(:contains("Loading"))' ], function(result) {
-			t.equal(result.text(), 'Count: 2');
+			t.equal(result.text(), 'Count: 21');
 		});
 
 	});
