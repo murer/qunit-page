@@ -19,7 +19,21 @@ if ! ./target/lib/phantomjs-1.9.2-linux-i686/bin/phantomjs --version; then
 	./target/lib/phantomjs/bin/phantomjs --version
 fi
 
-./target/lib/phantomjs/bin/phantomjs phantomjs-test/run-qunit.js http://localhost:8084/test/test.html
+python -m SimpleHTTPServer 8084 &
+sleep 1
+
+BUILD_STATUS=FAIL
+if ./target/lib/phantomjs/bin/phantomjs phantomjs-test/run-qunit.js http://localhost:8084/test/test.html; then
+	BUILD_STATUS=SUCCESS
+fi;
+set +e
+kill -9 %1
+set -e
+
+if [ "x$BUILD_STATUS" == "xSUCCESS" ]; then exit 0; fi
+
+exit 1;
+
 	
 
 
