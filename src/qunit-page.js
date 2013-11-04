@@ -216,7 +216,7 @@
 		},
 		open : function(url) {
 			(function(page) {
-				page.step('open', function() {
+				page.step('open ' + url, function() {
 					page.loaded = false;
 					page.window().location = url;
 					page.intervane(waitReady(page));
@@ -245,6 +245,9 @@
 			return;
 		}
 		var step = page.steps.shift();
+		if(step.name) {
+			log('step', step.name);
+		}
 		page._retry = false;
 		step.func(page);
 		if (page._stop) {
@@ -280,6 +283,7 @@
 
 	function pageTest(name, func) {
 		QUnit.test(name, function() {
+			log('pageTest', name);
 			var page = new Page();
 			QUnit.page = page;
 			page.name = name;
