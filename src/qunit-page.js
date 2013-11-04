@@ -1,5 +1,19 @@
 (function(QUnit, $) {
 
+	var timeStep = 1;
+	var enableDebug = false;
+
+	QUnit.match = function(actual, expected, message) {
+		QUnit.push(!!actual.match(expected), actual, expected, message);
+	}
+	
+	function log() {
+		if(!enableDebug || typeof(console) == 'undefined') {
+			return;
+		}
+		console.info.apply(console, arguments);
+	}
+	
 	function extend(target) {
 		if (arguments.length >= 2) {
 			for ( var i = 1; i < arguments.length; i++) {
@@ -38,7 +52,7 @@
 				}
 				setTimeout(function() {
 					makeWait(entry);
-				}, 1);
+				}, timeStep);
 				return;
 			}
 			if (entry.stopped) {
@@ -116,6 +130,7 @@
 					var objs = getAllDeps(page, deps);
 					for ( var i = 0; i < objs.length; i++) {
 						if (!objs[i]) {
+							log('waiting for', deps[i]);
 							return page.retry();
 						}
 					}
@@ -128,16 +143,20 @@
 	function waitReady(page) {
 		return function() {
 			if (!page.loaded) {
+				log('waitReady: !page.load');
 				return page.retry();
 			}
 			var $ = page.global('jQuery');
 			if (!$) {
+				log('waitReady: !$');
 				return page.retry();
 			}
 			if (!$.isReady) {
+				log('waitReady: !$.isReady');
 				return page.retry();
 			}
 			if (!page.window().ready) {
+				log('waitReady: !page.window().ready');
 				return page.retry();
 			}
 		}
@@ -152,6 +171,10 @@
 		Page.befores.push(function() {
 			before(QUnit.page);
 		});
+	}
+	Page.debug = function(timeout) {
+		timeStep = timeout || 5000;
+		enableDebug = true;
 	}
 
 	Page.fn = Page.prototype;
@@ -234,7 +257,7 @@
 		setTimeout(function() {
 			QUnit.start();
 			executeTest(page);
-		}, 1);
+		}, timeStep);
 		QUnit.stop();
 	}
 
