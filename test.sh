@@ -10,6 +10,7 @@ if ! ./target/lib/phantomjs-1.9.2-linux-i686/bin/phantomjs --version; then
 	tar xjf phantomjs.tar.bz2
 	cd -
 	ls ./target/lib/phantomjs-1.9.2-linux-i686/bin/phantomjs
+	file /sbin/init
 	./target/lib/phantomjs-1.9.2-linux-i686/bin/phantomjs --version
 fi
 
