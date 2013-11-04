@@ -2,6 +2,8 @@
 
 QUnitPage JS
 
+[![Build Status](https://travis-ci.org/murer/qunit-page.png)](https://travis-ci.org/murer/qunit-page)
+
 ## Implementing a test
 
 	(function(t) {
