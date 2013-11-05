@@ -1,6 +1,6 @@
-# QUnitPage
+# QUnit Page
 
-QUnitPage JS
+QUnit Page JS
 
 [![Build Status](https://travis-ci.org/murer/qunit-page.png)](https://travis-ci.org/murer/qunit-page)
 
