@@ -120,7 +120,10 @@
 			if (!deps) {
 				throw 'step function is required';
 			}
-			return prepareStep(page, name, [], deps);
+			if(typeof(name) == 'string'){
+				return prepareStep(page, name, [], deps);
+			}
+			return prepareStep(page, '', name, deps);
 		}
 		return {
 			name : name,
