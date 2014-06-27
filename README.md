@@ -87,6 +87,17 @@ http://murer.github.com/qunit-page/test/test.html
     </body>
     </html>
 
+## QUnit CSS
+
+QUnit css make `#qunit-fixture invisible`. If you want see your pages you need to change like this:
+
+    #qunit-fixture {
+    	position: absolute;
+    	width: 1200px;
+    	height: 800px;
+     }
+
+
 ## More Tests
 
 https://github.com/murer/qunit-page/tree/master/test
@@ -94,4 +105,3 @@ https://github.com/murer/qunit-page/tree/master/test
 ## Download
 
 http://murer.github.com/qunit-page/src/qunit-page.js
-
