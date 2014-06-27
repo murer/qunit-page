@@ -19,16 +19,16 @@ QUnit Page JS
 			// you want to open the page.
 			page.open('page.html');
 	
-			// first step. You need to pass two arguments.
-			// first argument is a array of elements to wait for.
-			// second argument is your step function.
+			// first step. You need to pass three arguments.
+			// first argument is a step name.
+			// second argument is a array of elements to wait for.
+			// third argument is your step function.
 			// It receives the elements which you were waiting for (same order).
-			page.step([ '#some .css .path' ], function(element) {
+			page.step('first step', [ '#some .css .path' ], function(element) {
 				element.click();
 			});
 	
 			// You can do more steps, of course.
-			// you can pass a step name if you want as the first argument.
 			page.step('second step', [ '.link', '.element2' ], function(link, textbox) {
 				textbox.val('abc');
 				link.click();
