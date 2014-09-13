@@ -84,5 +84,18 @@
 		});
 
 	});
+    
+    t.pageTest("page natigation without assert", function(page) {
+
+		page.open('panel.html');
+		
+		page.step('clicking link', [ '.other' ], function(other) {
+			page.click(other);
+		});
+
+		page.step('checking other', [ 'h1:contains("Other")', '.panel'], function(title, link) {
+			page.click(link);
+		});
+	});
 
 })(QUnit);

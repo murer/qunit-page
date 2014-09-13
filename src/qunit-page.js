@@ -283,6 +283,12 @@
 			page.step('before', Page.befores[i]);
 		}
 	}
+    
+    function simpleAssert(page){
+        page.step('', function(){
+            QUnit.ok(1);
+        });
+    }
 
 	function pageTest(name, func) {
 		QUnit.test(name, function() {
@@ -293,6 +299,7 @@
 			prepareFrame(page);
 			prepareBefore(page);
 			func(page);
+            simpleAssert(page);
 			executeTest(page);
 		});
 	}
