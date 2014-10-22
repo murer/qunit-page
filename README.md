@@ -1,8 +1,16 @@
 # QUnitPage
 
-QUnitPage JS
+An QUnit extension which allow you to write clean and easy UI tests.
 
 [![Build Status](https://travis-ci.org/murer/qunit-page.png)](https://travis-ci.org/murer/qunit-page)
+
+## Features
+
+- Centered in user steps (help you to avoid false negatives)
+- Write your code in javascript (help you to debbug any false negative)
+- No browser restriction (ex: Chrome, Firefox, PhantomJS)
+
+You can see here a more detailed explanation why you should care about these features.
 
 ## Implementing a test
 
