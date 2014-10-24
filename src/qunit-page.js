@@ -8,12 +8,12 @@
 	}
 	
 	function log() {
-		if(!enableDebug || typeof(console) == 'undefined') {
+		if (!enableDebug || typeof (console) == 'undefined') {
 			return;
 		}
 		console.info.apply(console, arguments);
 	}
-	
+    
 	function extend(target) {
 		if (arguments.length >= 2) {
 			for ( var i = 1; i < arguments.length; i++) {
@@ -170,6 +170,8 @@
 	}
 
 	Page.befores = [];
+    Page.afters = [];
+    
 	Page.before = function(before) {
 		Page.befores.push(function() {
 			before(QUnit.page);
@@ -179,9 +181,16 @@
 		timeStep = timeout || 5000;
 		enableDebug = true;
 	}
+    
+    Page.after = function(after) {
+		Page.afters.push(function() {
+			after(QUnit.page);
+		});
+	}
 
 	Page.fn = Page.prototype;
 	extend(Page.prototype, {
+        log : log,
 		step : function(name, deps, func) {
 			this.steps.push(prepareStep(this, name, deps, func));
 		},
@@ -285,6 +294,12 @@
 		}
 	}
     
+    function prepareAfter(page) {
+		for (var i = 0; i < Page.afters.length; i++) {
+			page.step('after', Page.afters[i]);
+		}
+	}
+    
     function simpleAssert(page){
         page.step('', function(){
             QUnit.ok(1);
@@ -300,6 +315,7 @@
 			prepareFrame(page);
 			prepareBefore(page);
 			func(page);
+            prepareAfter(page);
             simpleAssert(page);
 			executeTest(page);
 		});
