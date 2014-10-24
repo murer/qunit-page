@@ -270,7 +270,8 @@
 	function prepareFrame(page) {
 		page.fixture().html('<iframe />');
 		page.frame().bind('load', function() {
-			page.loaded = true;
+            this.contentWindow["ready"] = true;
+            page.loaded = true;
 			$(page.window()).bind('unload', function() {
 				page.loaded = false;
 				page.intervane(waitReady(page));
