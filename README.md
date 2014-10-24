@@ -60,15 +60,18 @@ You can see here a more detailed explanation why you should care about these fea
     
 ### Bad Things
 
-Same origin policy applies. You need to put test.html at the same domain of the page you want to test.
-  
-  
-When you 'open' any page, we always wait for global 'javascript valid ready' to continue.
-It means you need to do something like that in the page which you want to test:
+We've decided to remove it for easier experience.
+So we no longer wait for a global javascript variable called 'ready'.
 
-    $(window).ready(function() {
-    	ready = true
-    });  
+-Same origin policy applies. You need to put test.html at the same domain of the page you want to test.-
+  
+  
+-When you 'open' any page, we always wait for global 'javascript valid ready' to continue.-
+-It means you need to do something like that in the page which you want to test:-
+
+    -$(window).ready(function() {-
+    	-ready = true-
+    -});- 
          
     
 ## Live Sample
