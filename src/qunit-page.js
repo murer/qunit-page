@@ -158,10 +158,6 @@
 				log('waitReady: !$.isReady');
 				return page.retry();
 			}
-			if (!page.window().ready) {
-				log('waitReady: !page.window().ready');
-				return page.retry();
-			}
 		}
 	}
 
@@ -279,7 +275,6 @@
 	function prepareFrame(page) {
 		page.fixture().html('<iframe />');
 		page.frame().bind('load', function() {
-            this.contentWindow["ready"] = true;
             page.loaded = true;
 			$(page.window()).bind('unload', function() {
 				page.loaded = false;
