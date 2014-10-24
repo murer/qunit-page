@@ -11,7 +11,7 @@ An QUnit extension that allows you to easily write clean UI tests.
 - No browser restriction (ex: Chrome, Firefox, PhantomJS)
 
 You can see here a more detailed explanation why you should care about these features.
->>>>>>> gh-pages
+http://qunitpage.org
 
 ## Implementing a test
 
