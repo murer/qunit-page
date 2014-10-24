@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>QUnit Page</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/scrolling-nav.css" rel="stylesheet">
+
+    <link href="css/main.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<!-- The #page-top ID is part of the scrolling feature - the data-spy and data-target are part of the built-in Bootstrap scrollspy function -->
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top">QUnit Page</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav">
+                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                    <li class="hidden">
+                        <a class="page-scroll" href="#page-top"></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#why">Why?</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#how">How?</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#download">Download</a>
+                    </li>
+                    <li>
+                    	<a target="_blank" href="http://murer.github.io/qunit-page/test/test.html">Live Demo</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Intro Section -->
+    <section id="intro" class="intro-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>QUnit Page</h1>
+                    <p>An QUnit extension that allows you to <strong>easily</strong> write <strong>clean UI tests.</strong></p>
+                           
+                    <div class="navigation-buttons">
+                        <a class="btn btn-default page-scroll" href="#why"><strong>Why</strong><br/> should I care?</a>
+                        <a class="btn btn-default page-scroll" href="#how"><strong>How</strong><br/> implement a test?</a>
+                        <a class="btn btn-default page-scroll" href="#download"><strong>Download</strong><br/> and configure</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="why" class="about-section">
+        <div class="container">
+            <div class="why">
+                <div class="col-lg-12">
+                    <h1>Why?</h1>
+
+                    <h3 class="why-answer">Centered in user steps</h3>
+                    <p>what makes it <strong>easy</strong> to write tests and help you to <strong>avoid false negatives</strong></p>
+                        
+
+                    <h3 class="why-answer">Write your test code in javascript</h3>
+                    <p>what makes it <strong>easier to debug any false negative</strong></p>
+
+                    <h3 class="why-answer">No browser restriction</h3>
+                    <p>what makes it <strong>awesome</strong> :)</p>
+                 </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="how" class="how-section">
+        <div class="container">
+            <div class="how">
+                <div class="col-lg-12">
+                    <h1>How?</h1>
+
+                    <p>If it is indeed that simple, then just one sample must be enough to explain how to use it</p>
+                    <pre class="how-code">
+(function(t) {
+
+    // qunit module
+    t.module('first module');
+
+    // you should pass a test function as you do with traditional qunit.
+    // you will receive a page where you can describe test steps.
+    t.pageTest("first test", function(page) {
+
+        // you want to open the page.
+        page.open('page.html');
+
+        // first step. You need to pass three arguments.
+        // first argument is a step name.
+        // second argument is a array of elements to wait for.
+        // third argument is your step function.
+        // It receives the elements which you were waiting for (same order).
+        page.step('first step', [ '#some .css .path' ], function(element) {
+            element.click();
+        });
+
+        // You can do more steps, of course.
+        page.step('second step', [ '.link', '.element2' ], function(link, textbox) {
+            textbox.val('abc');
+            link.click();
+        });
+
+        // You can do a more complex waitFor passing a function.
+        // this waitFor function will be called until it returns something
+        // 'valid in javascript'.
+        // and the return will be the arugment to your step function.
+        page.step('second step', [ '.link', function() {
+            return window.something;
+        } ], function(link, something) {
+            something.doSomething();
+            link.click();
+        });
+
+    });
+})(QUnit);
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="download" class="download-section">
+        <div class="container">
+            <div class="download">
+                <div class="col-lg-12">
+                    <div class="navigation-buttons">
+                        <a class="btn btn-default" target="_blank" href="https://raw.githubusercontent.com/murer/qunit-page/qunit-page-1.0.3/src/qunit-page.js"><strong>Download</strong><br/>qunit-page-<strong>1.0.3</strong>.js</strong></a>
+                    </div>
+                    
+                    <h3>A small change in your application</h3>
+                    <p>Currently, when you 'open' any page, we wait for a global 'ready' variable to continue</p> 
+                    <p>It means you need to do something like that in the page which you want to test:</p>
+                    <pre class="how-code">
+$(window).ready(function() {
+    ready = true
+});
+</pre>
+
+                    <h3>Create a page to run your tests</h3>
+                    <p>Add required libs: jquery, qunit and qunit-page</p>
+                    <p>Add your own javascript test files. Here is our <a target="_blank" href="http://murer.github.io/qunit-page/test/test.html">live demo</a> code:</p>
+                    <pre class="how-code">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;utf-8&quot;&gt;
+  &lt;title&gt;QUnit Page Test&lt;/title&gt;
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;../lib/qunit.css&quot;&gt;
+  
+  &lt;!-- Libs --&gt;
+  &lt;script src=&quot;../lib/jquery.js&quot;&gt;&lt;/script&gt;
+  &lt;script src=&quot;../lib/qunit.js&quot;&gt;&lt;/script&gt;
+  &lt;script src=&quot;../src/qunit-page.js&quot;&gt;&lt;/script&gt;
+  
+  &lt;!-- Yours test files --&gt;
+  &lt;script src=&quot;qunit-page-poc.js&quot;&gt;&lt;/script&gt;
+  &lt;script src=&quot;qunit-page-wait-test.js&quot;&gt;&lt;/script&gt;
+  &lt;script src=&quot;qunit-page-face-test.js&quot;&gt;&lt;/script&gt;   
+  &lt;script src=&quot;qunit-page-face-wait-test.js&quot;&gt;&lt;/script&gt;
+  &lt;style&gt;
+	/* QUnit css make #qunit-fixture invisible. 
+	   If you want see your pages you need to change like this */
+	#qunit-fixture {
+	    position: absolute;
+	    width: 1200px;
+	    height: 800px;
+ 	}
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div id=&quot;qunit&quot;&gt;&lt;/div&gt;
+  &lt;div id=&quot;qunit-fixture&quot;&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                    </pre>
+                    <p><strong>Note: </strong>qunit-page-poc.js, qunit-page-wait-test.js are some test files of live demo, you need to create your own</p>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- jQuery Version 1.11.0 -->
+    <script src="js/jquery-1.11.0.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Scrolling Nav JavaScript -->
+    <script src="js/jquery.easing.min.js"></script>
+    <script src="js/scrolling-nav.js"></script>
+
+</body>
+
+</html>
