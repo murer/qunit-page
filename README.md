@@ -58,7 +58,7 @@ You can see here a more detailed explanation why you should care about these fea
 
 
     
-### Bad Things
+~~### Bad Things~~
 
 We've decided to remove it for easier experience.
 So we no longer wait for a global javascript variable called 'ready'.
