@@ -1,8 +1,8 @@
-.main-navigation-buttons {
+.navigation-buttons {
     margin-top: 40px;
 }
 
-.main-navigation-buttons a {
+.navigation-buttons a {
     width: 150px;
 }
 
@@ -21,4 +21,11 @@ pre.how-code {
     padding-top: 50px;
     text-align: center;
     background: #fff;
+}
+
+.download-section {
+    height: 100%;
+    padding-top: 150px;
+    text-align: center;
+    background: #eee;
 }
