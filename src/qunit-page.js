@@ -1,6 +1,6 @@
 (function(QUnit, $) {
 
-    var timeStep = 1;
+    var timeStep = 500;
     var enableDebug = false;
 
     QUnit.match = function(actual, expected, message) {
@@ -125,13 +125,15 @@
             }
             return prepareStep(page, '', name, deps);
         }
-        return {
-            name : name,
-            func : function() {
+        var step = {
+            name: name,
+            canonicalName: 'step-' + replaceAll(name, ' ', '-'),
+            funcToExecute: func,
+            func: function () {
                 var objs = [];
                 if (deps.length) {
                     var objs = getAllDeps(page, deps);
-                    for ( var i = 0; i < objs.length; i++) {
+                    for (var i = 0; i < objs.length; i++) {
                         if (!objs[i]) {
                             log('waiting for', deps[i]);
                             return page.retry();
@@ -140,7 +142,9 @@
                 }
                 func.apply(this, objs);
             }
-        }
+        };
+        addStepToDeveloperPanel(page, step);
+        return step;
     }
 
     function waitReady(page) {
@@ -206,6 +210,9 @@
         fixture : function() {
             return $('#qunit-fixture');
         },
+        developerPanel : function() {
+            return this.fixture().find('#qunit-developer-panel');
+        },
         frame : function() {
             return this.fixture().find('iframe');
         },
@@ -224,7 +231,7 @@
         },
         open : function(url) {
             (function(page) {
-                page.step('open ' + url, function() {
+                page.step('INTERNAL-STEP - open ' + url, function() {
                     page.loaded = false;
                     page.window().location = url;
                     page.intervane(waitReady(page));
@@ -253,8 +260,9 @@
             return;
         }
         var step = page.steps.shift();
-        if(step.name) {
+        if (step.name) {
             log('step', step.name);
+            highlightStepToDeveloperPanel(page, step);
         }
         page._retry = false;
         step.func(page);
@@ -265,7 +273,7 @@
         if (page._retry) {
             page.steps.unshift(step);
         }
-        setTimeout(function() {
+        setTimeout(function () {
             QUnit.start();
             executeTest(page);
         }, timeStep);
@@ -274,6 +282,7 @@
 
     function prepareFrame(page) {
         page.fixture().html('<iframe />');
+        page.fixture().append('<div id="qunit-developer-panel"></div>');
         page.frame().bind('load', function() {
             page.loaded = true;
             $(page.window()).bind('unload', function() {
@@ -296,9 +305,43 @@
     }
 
     function simpleAssert(page){
-        page.step('', function(){
+        page.step('INTERNAL-STEP - simpleAssert', function(){
             QUnit.ok(1);
         });
+    }
+
+    /** TODO: Should this step functions be inside step? **/
+    function addStepToDeveloperPanel(page, step) {
+        if (!isUserStep(step)) {
+            return ;
+        }
+
+        var printableFunc = step.funcToExecute.toString();
+        printableFunc = replaceAll(printableFunc, '\n', '<br/>');
+        printableFunc = replaceAll(printableFunc, '\t', '.');
+
+        var div = '<div class="' + step.canonicalName + '">';
+        div += '<h3>' + step.name + '</h3><span>' + printableFunc + '</span>';
+        div += '</div>';
+
+        page.developerPanel().append(div);
+    }
+
+    function highlightStepToDeveloperPanel(page, step) {
+        var stepDiv = $(page.developerPanel().find('.' + step.canonicalName));
+        stepDiv.addClass('currentExecutingStep');
+    }
+
+    function replaceAll(value, from, to) {
+        while (value.indexOf(from) >= 0) {
+            value = value.replace(from, to);
+        }
+
+        return value;
+    }
+
+    function isUserStep(step) {
+        return step.name.indexOf('INTERNAL-STEP') == -1;
     }
 
     function pageTest(name, func) {

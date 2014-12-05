@@ -246,8 +246,19 @@
 */
 
 #qunit-fixture iframe {
-	width: 1000px;
+	display: inline-block;
+	width: 49%;
 	height: 1000px;
 }
 
+#qunit-fixture #qunit-developer-panel {
+	display: inline-block;
+	width: 49%;
+	height: 100%;
+	vertical-align: top;
+	margin-left: 10px;
+}
 
+#qunit-developer-panel .currentExecutingStep {
+	background-color: green;
+}
