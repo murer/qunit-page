@@ -1,6 +1,6 @@
 (function(QUnit, $) {
 
-    var timeStep = 500;
+    var timeStep = 1;
     var enableDebug = false;
 
     QUnit.match = function(actual, expected, message) {
