@@ -1,6 +1,6 @@
 (function(QUnit, $) {
 
-    var timeStep = 1;
+    var timeStep = 500;
     var enableDebug = false;
 
     QUnit.match = function(actual, expected, message) {
@@ -129,10 +129,12 @@
             name: name,
             canonicalName: 'step-' + replaceAll(name, ' ', '-'),
             funcToExecute: func,
+            deps: deps,
             func: function () {
                 var objs = [];
                 if (deps.length) {
                     var objs = getAllDeps(page, deps);
+                    console.log('teste', objs.length);
                     for (var i = 0; i < objs.length; i++) {
                         if (!objs[i]) {
                             log('waiting for', deps[i]);
@@ -316,12 +318,29 @@
             return ;
         }
 
-        var printableFunc = step.funcToExecute.toString();
-        printableFunc = replaceAll(printableFunc, '\n', '<br/>');
-        printableFunc = replaceAll(printableFunc, '\t', '.');
+        var printableFunc = 'page.step(\'' + step.name + '\', [';
 
-        var div = '<div class="' + step.canonicalName + '">';
-        div += '<h3>' + step.name + '</h3><span>' + printableFunc + '</span>';
+        var deps = step.deps;
+        // FIXME -
+        var objs = getAllDeps(page, deps);
+        console.log('objs.length', objs.length);
+        for (var i = 0; i < objs.length; i++) {
+            if (!objs[i]) {
+                printableFunc += '\'' + deps[i] + '\'';
+                if (i != objs.length - 1) {
+                    printableFunc += + ', ';
+                }
+            }
+        }
+
+        printableFunc += '], ';
+
+        printableFunc += step.funcToExecute.toString();
+        printableFunc =  replaceAll(printableFunc, '\n', '<br/>');
+        printableFunc =  replaceAll(printableFunc, '\t', '.');
+
+        var div = '<div class="step ' + step.canonicalName + '">';
+        div += '<span>' + printableFunc + '</span>';
         div += '</div>';
 
         page.developerPanel().append(div);
@@ -329,6 +348,7 @@
 
     function highlightStepToDeveloperPanel(page, step) {
         var stepDiv = $(page.developerPanel().find('.' + step.canonicalName));
+        stepDiv.siblings().removeClass('currentExecutingStep');
         stepDiv.addClass('currentExecutingStep');
     }
 

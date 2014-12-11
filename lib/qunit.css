@@ -259,6 +259,15 @@
 	margin-left: 10px;
 }
 
+#qunit-developer-panel .step {
+	margin-bottom: 10px;
+	padding: 10px;
+	border-style: dashed;
+	border-width: 1px;
+	border-color: #CCCCCC;
+}
+
 #qunit-developer-panel .currentExecutingStep {
-	background-color: green;
+	background-color: #DDFFDD;
+	border-color: black;
 }
