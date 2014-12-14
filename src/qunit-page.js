@@ -1,6 +1,6 @@
 (function(QUnit, $) {
 
-    var timeStep = 500;
+    var timeStep = 1;
     var enableDebug = false;
 
     QUnit.match = function(actual, expected, message) {
@@ -312,7 +312,7 @@
         });
     }
 
-    /** TODO: Should this step functions be inside step? **/
+    /** TODO: Should it be a extension? **/
     function addStepToDeveloperPanel(page, step) {
         if (!isUserStep(step)) {
             return ;

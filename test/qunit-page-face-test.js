@@ -95,7 +95,6 @@
 
 		page.step('checking other', [ 'h1:contains("Other")', '.panel'], function(title, link) {
 			page.click(link);
-			page.stop();
 		});
 	});
 
