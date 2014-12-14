@@ -1,7 +1,8 @@
 (function(QUnit, $) {
 
-    var timeStep = 1;
-    var enableDebug = false;
+    var developmentMode = true;
+    var timeStep = !developmentMode ? 1 : 100;
+    var enableDebug = true;
 
     QUnit.match = function(actual, expected, message) {
         QUnit.push(!!actual.match(expected), actual, expected, message);
@@ -134,7 +135,6 @@
                 var objs = [];
                 if (deps.length) {
                     var objs = getAllDeps(page, deps);
-                    console.log('teste', objs.length);
                     for (var i = 0; i < objs.length; i++) {
                         if (!objs[i]) {
                             log('waiting for', deps[i]);
@@ -312,7 +312,7 @@
         });
     }
 
-    /** TODO: Should it be a extension? **/
+    /** TODO: Should it be an extension? **/
     function addStepToDeveloperPanel(page, step) {
         if (!isUserStep(step)) {
             return ;
@@ -347,9 +347,8 @@
     }
 
     function highlightStepToDeveloperPanel(page, step) {
-        var stepDiv = $(page.developerPanel().find('.' + step.canonicalName));
-        stepDiv.siblings().removeClass('currentExecutingStep');
-        stepDiv.addClass('currentExecutingStep');
+        page.developerPanel().find('.step').removeClass('currentExecutingStep');
+        page.developerPanel().find('.' + step.canonicalName).addClass('currentExecutingStep');
     }
 
     function replaceAll(value, from, to) {
@@ -364,7 +363,47 @@
         return step.name.indexOf('INTERNAL-STEP') == -1;
     }
 
-    function pageTest(name, func) {
+    function addStepWaitForResume(page) {
+        page.step('INTERNAL-STEP - waiting for resume', [], function() {
+            if (page.resumed) {
+                page.resumed = false;
+            } else {
+                page.retry();
+            }
+        });
+    }
+
+    function addNewStepPanel(page) {
+        var newStepPanel = '';
+        newStepPanel += '<div class="new-step-panel"><textarea>';
+        newStepPanel += "page.step('test', [], function() {\n";
+        newStepPanel += "\tconsole.log('Hello!');\n"
+        newStepPanel += "});";
+        newStepPanel += '</textarea></div>';
+        newStepPanel = $(newStepPanel);
+        page.developerPanel().append(newStepPanel);
+
+        var resumeButton = $('<button>Resume</button>');
+        resumeButton.click(function () {
+            page.resumed = true;
+            var newStepCode = page.developerPanel().find('.new-step-panel textarea').val();
+            page.developerPanel().find('.new-step-panel').remove();
+            eval(newStepCode);
+            addStepWaitForResume(page);
+            addNewStepPanel(page);
+        });
+        page.developerPanel().find('.new-step-panel').append(resumeButton);
+    }
+
+    function pageTestInDevelopment(name, func) {
+        return pageTest(name, func, 'testInDevelopment');
+    }
+
+    function pageTest(name, func, testInDevelopment) {
+        if (developmentMode && !testInDevelopment) {
+            return;
+        }
+
         QUnit.test(name, function() {
             log('pageTest', name);
             var page = new Page();
@@ -375,11 +414,14 @@
             func(page);
             prepareAfter(page);
             simpleAssert(page);
+            if (developmentMode) addStepWaitForResume(page);
+            if (developmentMode) addNewStepPanel(page);
             executeTest(page);
         });
     }
 
     QUnit.pageTest = pageTest;
+    QUnit.pageTestInDevelopment = pageTestInDevelopment;
     QUnit.waitFor = waitFor;
     QUnit.Page = Page;
 

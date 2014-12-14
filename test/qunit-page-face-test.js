@@ -2,7 +2,7 @@
 
 	t.module('QUnitPage Face Test');
 
-	t.pageTest("page ajax raw mode", function(page) {
+	t.pageTestInDevelopment("page ajax raw mode", function(page) {
 
 		page.open('panel.html');
 

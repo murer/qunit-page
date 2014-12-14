@@ -265,9 +265,18 @@
 	border-style: dashed;
 	border-width: 1px;
 	border-color: #CCCCCC;
+	font-family: monospace;
+	font-size: 13px;
 }
 
 #qunit-developer-panel .currentExecutingStep {
 	background-color: #DDFFDD;
 	border-color: black;
+}
+
+#qunit-developer-panel .new-step-panel textarea {
+	width: 100%;
+	height: 150px;
+	font-family: monospace;
+	font-size: 13px;
 }
