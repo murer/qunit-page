@@ -2,7 +2,7 @@
 
     var developmentMode = true;
     var timeStep = !developmentMode ? 1 : 100;
-    var enableDebug = true;
+    var enableDebug = false;
 
     QUnit.match = function(actual, expected, message) {
         QUnit.push(!!actual.match(expected), actual, expected, message);
@@ -116,6 +116,7 @@
         return ret;
     }
 
+    var stepId = 0;
     function prepareStep(page, name, deps, func) {
         if (!func) {
             if (!deps) {
@@ -128,7 +129,7 @@
         }
         var step = {
             name: name,
-            canonicalName: 'step-' + replaceAll(name, ' ', '-'),
+            stepId: stepId++,
             funcToExecute: func,
             deps: deps,
             func: function () {
@@ -169,6 +170,7 @@
 
     function Page() {
         this.steps = [];
+        this.allSteps = [];
     }
 
     Page.befores = [];
@@ -194,7 +196,9 @@
     extend(Page.prototype, {
         log : log,
         step : function(name, deps, func) {
-            this.steps.push(prepareStep(this, name, deps, func));
+            var step = prepareStep(this, name, deps, func);
+            this.allSteps.push(step);
+            this.steps.push(step);
         },
         stop : function() {
             this._stop = true;
@@ -323,7 +327,6 @@
         var deps = step.deps;
         // FIXME -
         var objs = getAllDeps(page, deps);
-        console.log('objs.length', objs.length);
         for (var i = 0; i < objs.length; i++) {
             if (!objs[i]) {
                 printableFunc += '\'' + deps[i] + '\'';
@@ -339,16 +342,30 @@
         printableFunc =  replaceAll(printableFunc, '\n', '<br/>');
         printableFunc =  replaceAll(printableFunc, '\t', '.');
 
-        var div = '<div class="step ' + step.canonicalName + '">';
+        var div = '<div class="step ' + step.stepId + '">';
         div += '<span>' + printableFunc + '</span>';
         div += '</div>';
 
+        var selectedStepId = step.stepId;
+        var rerunButton = $('<button>Rerun</button>');
+        rerunButton.click(function() {
+            page.steps = [];
+
+            $(page.allSteps).each(function() {
+                if (this.stepId >= selectedStepId) {
+                    // TODO: It is not well encapsulate
+                    page.steps.push(this);
+                    console.log('adding', this.name);
+                }
+            });
+        });
         page.developerPanel().append(div);
+        page.developerPanel().append(rerunButton);
     }
 
     function highlightStepToDeveloperPanel(page, step) {
         page.developerPanel().find('.step').removeClass('currentExecutingStep');
-        page.developerPanel().find('.' + step.canonicalName).addClass('currentExecutingStep');
+        page.developerPanel().find('.' + step.stepId).addClass('currentExecutingStep');
     }
 
     function replaceAll(value, from, to) {
@@ -389,6 +406,7 @@
             var newStepCode = page.developerPanel().find('.new-step-panel textarea').val();
             page.developerPanel().find('.new-step-panel').remove();
             eval(newStepCode);
+            // FIXME - We should remove the waiting if not the rerun will stop in it
             addStepWaitForResume(page);
             addNewStepPanel(page);
         });

@@ -260,7 +260,7 @@
 }
 
 #qunit-developer-panel .step {
-	margin-bottom: 10px;
+	margin-top: 10px;
 	padding: 10px;
 	border-style: dashed;
 	border-width: 1px;
@@ -275,6 +275,7 @@
 }
 
 #qunit-developer-panel .new-step-panel textarea {
+	margin-top: 10px;
 	width: 100%;
 	height: 150px;
 	font-family: monospace;
