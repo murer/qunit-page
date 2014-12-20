@@ -1,5 +1,6 @@
 (function(QUnit, $) {
 
+    // FIXME - Get it from URL
     var developmentMode = true;
     var timeStep = !developmentMode ? 1 : 100;
     var enableDebug = false;
@@ -325,7 +326,7 @@
         var printableFunc = 'page.step(\'' + step.name + '\', [';
 
         var deps = step.deps;
-        // FIXME -
+        // FIXME - Show all function parameters
         var objs = getAllDeps(page, deps);
         for (var i = 0; i < objs.length; i++) {
             if (!objs[i]) {
