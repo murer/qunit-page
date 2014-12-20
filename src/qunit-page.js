@@ -259,6 +259,11 @@
             } else if (document.fireEvent) { // IE
                 element.click();
             }
+        },
+        printSteps: function() {
+            $(this.steps).each(function() {
+                console.log(this.stepId + ' - ' + this.name);
+            });
         }
     });
 
@@ -356,7 +361,6 @@
                 if (this.stepId >= selectedStepId) {
                     // TODO: It is not well encapsulate
                     page.steps.push(this);
-                    console.log('adding', this.name);
                 }
             });
         });
@@ -383,15 +387,11 @@
 
     function addStepWaitForResume(page) {
         page.step('INTERNAL-STEP - waiting for resume', [], function() {
-            if (page.resumed) {
-                page.resumed = false;
-            } else {
-                page.retry();
-            }
+            page.retry();
         });
     }
 
-    function addNewStepPanel(page) {
+    function addPanelNewStep(page) {
         var newStepPanel = '';
         newStepPanel += '<div class="new-step-panel"><textarea>';
         newStepPanel += "page.step('test', [], function() {\n";
@@ -401,17 +401,19 @@
         newStepPanel = $(newStepPanel);
         page.developerPanel().append(newStepPanel);
 
-        var resumeButton = $('<button>Resume</button>');
-        resumeButton.click(function () {
-            page.resumed = true;
+        var addStepButton = $('<button>Add Step</button>');
+        addStepButton.click(function () {
+            // remove wait step
+            page.allSteps.pop();
+            page.steps.pop();
+
             var newStepCode = page.developerPanel().find('.new-step-panel textarea').val();
             page.developerPanel().find('.new-step-panel').remove();
             eval(newStepCode);
-            // FIXME - We should remove the waiting if not the rerun will stop in it
             addStepWaitForResume(page);
-            addNewStepPanel(page);
+            addPanelNewStep(page);
         });
-        page.developerPanel().find('.new-step-panel').append(resumeButton);
+        page.developerPanel().find('.new-step-panel').append(addStepButton);
     }
 
     function pageTestInDevelopment(name, func) {
@@ -434,7 +436,7 @@
             prepareAfter(page);
             simpleAssert(page);
             if (developmentMode) addStepWaitForResume(page);
-            if (developmentMode) addNewStepPanel(page);
+            if (developmentMode) addPanelNewStep(page);
             executeTest(page);
         });
     }
