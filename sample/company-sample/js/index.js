@@ -8,6 +8,7 @@
         });
     }
 
+    window.onhashchange();
 })(jQuery);
 
 function Company(name, identificationNumber) {

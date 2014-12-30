@@ -9,5 +9,39 @@
 </form>
 
 <div class="navigation-buttons">
-    <button class="btn btn-default">Login</button>
+    <button class="btn btn-default search">Search</button>
 </div>
+
+<table class="companies">
+    <tr>
+        <th>Name</th>
+        <th>Identification Number</th>
+    </tr>
+</table>
+
+<div class="navigation-buttons">
+    <button class="btn add">Add</button>
+</div>
+
+<script>
+    $('.search').click(function() {
+        window.onhashchange();
+    });
+
+    $('.add').click(function(){
+        new Company('andrei').save();
+        $('.search').click();
+    });
+
+    Company.query().forEach(function(company) {
+        var table = $('table.companies');
+
+        var tr = '';
+        tr += '<tr>';
+        tr += '  <td>' + company.name + '</td>';
+        tr += '  <td>' + company.identificationNumber + '</td>';
+        tr += '</tr>';
+
+        table.append(tr);
+    });
+</script>
