@@ -1,0 +1,39 @@
+/** UNecessary because of bootstrap.css ***/
+
+input.form-control {
+    width: 200px;
+}
+
+/*************/
+
+.navigation-buttons {
+    margin-top: 40px;
+}
+
+.navigation-buttons a {
+    width: 150px;
+}
+
+h3.why-answer {
+    margin-top: 40px;
+}
+
+pre.how-code {
+    text-align: left;
+    width: 700px;
+    margin: auto;
+}
+
+.how-section {
+    height: 160%;
+    padding-top: 50px;
+    text-align: center;
+    background: #fff;
+}
+
+.download-section {
+    height: 200%;
+    padding-top: 30px;
+    text-align: center;
+    background: #eee;
+}
