@@ -1,7 +1,7 @@
 (function(QUnit, $) {
 
     // FIXME - Get it from URL
-    var developmentMode = true;
+    var developmentMode = false;
     var timeStep = !developmentMode ? 1 : 100;
     var enableDebug = false;
 
