@@ -33,15 +33,17 @@
         $('.search').click();
     });
 
-    Company.query().forEach(function(company) {
-        var table = $('table.companies');
+    Company.query().done(function(companies) {
+        $(companies).each(function(company) {
+            var table = $('table.companies');
 
-        var tr = '';
-        tr += '<tr>';
-        tr += '  <td>' + company.name + '</td>';
-        tr += '  <td>' + company.identificationNumber + '</td>';
-        tr += '</tr>';
+            var tr = '';
+            tr += '<tr>';
+            tr += '  <td>' + company.name + '</td>';
+            tr += '  <td>' + company.identificationNumber + '</td>';
+            tr += '</tr>';
 
-        table.append(tr);
+            table.append(tr);
+        });
     });
 </script>

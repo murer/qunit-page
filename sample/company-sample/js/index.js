@@ -11,6 +11,10 @@
     window.onhashchange();
 })(jQuery);
 
+function asynCall(f) {
+    setTimeout(f, 1000);
+}
+
 function Company(name, identificationNumber) {
     this.name =  name;
     this.identificationNumber = identificationNumber;
@@ -20,12 +24,19 @@ function Company(name, identificationNumber) {
     var companies = [];
 
     Company.query = function(name, identificationNumber) {
-        companies.filter(function(company) {
-            if (name && name != company.name) return false;
-            if (identificationNumber && identificationNumber != company.identificationNumber) return false;
-            return true;
-        });
-        return companies;
+        return {
+            done: function(cb) {
+                console.log('cb', cb);
+                asynCall(function() {
+                    companies.filter(function(company) {
+                        if (name && name != company.name) return false;
+                        if (identificationNumber && identificationNumber != company.identificationNumber) return false;
+                        return true;
+                    });
+                    cb(companies);
+                });
+            }
+        }
     }
 
     Company.prototype.save = function() {
