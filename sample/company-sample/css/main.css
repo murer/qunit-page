@@ -11,6 +11,21 @@ table th, table td {
 
 /*************/
 
+.display_none {
+    display: none;
+}
+
+.message {
+    position: absolute;
+    right: 20px;
+}
+
+.loading-block {
+    font-size: 16pt;
+    position: absolute;
+    left: 47%;
+}
+
 .navigation-buttons {
     margin-top: 40px;
 }
@@ -41,4 +56,14 @@ pre.how-code {
     padding-top: 30px;
     text-align: center;
     background: #eee;
+}
+
+#control-panel {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    top: 100px;
+    right: 30px;
+    border-style: solid;
+    border-width: 1px;
 }

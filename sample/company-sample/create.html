@@ -1,0 +1,22 @@
+<h1>Create</h1>
+
+<form>
+
+  <label>Name</label>
+  <input type="text" id="name" />
+
+  <label>Number</label>
+  <input type="text" id="number" />
+
+  <button id="company-save">Save</button>
+</form>
+
+<script type="text/javascript">
+  $('#company-save').click(function() {
+    var company = new Company($('#name').val(), $('#number').val());
+    company.save().done(function() {
+      message.success('Company saved');
+      window.location.hash = '#search';
+    });
+  });
+</script>

@@ -1,0 +1,32 @@
+<button id="everything-ok">Everything ok</button>
+<button id="wrong-delay">Wrong delay</button>
+
+<br/>
+
+<label>Search time</label>
+<input type-="text" id="search-time" />
+
+<br/>
+
+<label>Save time</label>
+<input type-="text" id="save-time" />
+
+<br/>
+
+<button id="control-panel-save">Save</button>
+
+<script type="text/javascript">
+  controlPanel.printValues();
+
+  $('#control-panel-save').click(function() {
+    controlPanel.save();
+  });
+
+  $('#everything-ok').click(function() {
+    controlPanel.everythingOk();
+  });
+
+  $('#wrong-delay').click(function() {
+    controlPanel.wrongDelay();
+  });
+</script>

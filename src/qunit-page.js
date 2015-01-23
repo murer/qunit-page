@@ -351,6 +351,7 @@
         var div = '<div class="step ' + step.stepId + '">';
         div += '<span>' + printableFunc + '</span>';
         div += '</div>';
+        div = $(div);
 
         var selectedStepId = step.stepId;
         var rerunButton = $('<button>Rerun</button>');
@@ -364,8 +365,32 @@
                 }
             });
         });
+
+        var editButton = $('<button>Edit</button>');
+        editButton.click(function() {
+            var content = div.find('span').val();
+            var editTextArea = $('<textarea></textarea>');
+            editTextArea.text(content);
+
+            var confirmEditButton = $('<button>Confirm</button>');
+            confirmEditButton.click(function() {
+                console.log('confirm!');
+            });
+
+            var cancelEditButton = $('<button>Cancel</button>');
+            cancelEditButton.click(function() {
+               console.log('cancel');
+            });
+
+            div.find('span').hide();
+            div.append(editTextArea);
+            div.append(confirmEditButton);
+            div.append(cancelEditButton);
+        });
+
         page.developerPanel().append(div);
         page.developerPanel().append(rerunButton);
+        page.developerPanel().append(editButton);
     }
 
     function highlightStepToDeveloperPanel(page, step) {

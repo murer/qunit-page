@@ -12,7 +12,7 @@
     <button class="btn btn-default search">Search</button>
 </div>
 
-<table class="companies">
+<table class="companies" class="display_none">
     <tr>
         <th>Name</th>
         <th>Identification Number</th>
@@ -29,13 +29,13 @@
     });
 
     $('.add').click(function(){
-        new Company('andrei').save();
-        $('.search').click();
+        window.location.hash = "#create";
     });
 
     Company.query().done(function(companies) {
-        $(companies).each(function(company) {
-            var table = $('table.companies');
+        var table = $('table.companies');
+
+        $(companies).each(function(index, company) {
 
             var tr = '';
             tr += '<tr>';
@@ -45,5 +45,7 @@
 
             table.append(tr);
         });
+
+        table.show();
     });
 </script>

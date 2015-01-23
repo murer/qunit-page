@@ -12,45 +12,41 @@
     <title>QUnit Page - Company Sample</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="vendor/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="css/scrolling-nav.css" rel="stylesheet">
+    <link href="vendor/css/scrolling-nav.css" rel="stylesheet">
 
     <link href="css/main.css" rel="stylesheet">
 </head>
 
 <body>
 
-    <div id="content">
-        <h1>Welcome to CRUD Company Sample</h1>
-        <form>
-            <label>Login: </label>
-            <input type="text" name="login" />
-            <br/>
-
-            <label>Password: </label>
-            <input type="password" name="password" />
-        </form>
-
-        <div class="navigation-buttons">
-            <button class="btn btn-default login">Login</button>
-        </div>
+    <div id="loading" class="loading-block display_none">
+        Loading...
     </div>
 
+    <div id="message" class="message">
+    </div>
+
+    <div id="content">
+    </div>
+
+    <div id="control-panel"></div>
+
     <!-- jQuery Version 1.11.0 -->
-    <script src="js/jquery-1.11.0.js"></script>
+    <script src="vendor/js/jquery-1.11.0.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="vendor/js/bootstrap.min.js"></script>
 
+    <script src="js/ajax_simulation.js"></script>
+    <script src="js/company.js"></script>
     <script src="js/index.js"></script>
-
-    <script>
-        $('button.login').click(function() {
-            document.location.hash = '#search';
-        });
-    </script>
+    <script src="js/loading.js"></script>
+    <script src="js/message.js"></script>
+    <script src="js/developer.js"></script>
+    <script src="js/control_panel.js"></script>
 </body>
 
 </html>
