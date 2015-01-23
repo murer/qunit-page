@@ -1,15 +1,6 @@
-/** UNecessary because of bootstrap.css ***/
-
 input.form-control {
     width: 200px;
 }
-
-table th, table td {
-    border-width: 1px;
-    border-style: solid;
-}
-
-/*************/
 
 .display_none {
     display: none;

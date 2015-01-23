@@ -16,7 +16,7 @@
     <button class="btn btn-default search">Search</button>
 </div>
 
-<table class="companies" class="display_none">
+<table id="companies" class="table table-bordered table-hover display_none">
     <tr>
         <th>Name</th>
         <th>Identification Number</th>
@@ -31,7 +31,7 @@
     });
 
     Company.query().done(function(companies) {
-        var table = $('table.companies');
+        var table = $('table#companies');
 
         $(companies).each(function(index, company) {
 
