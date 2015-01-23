@@ -47,3 +47,8 @@ table th, table td {
     vertical-align: top;
     margin: 10px 30px 0 10px;
 }
+
+div.menu li {
+    width: 150px;
+    text-align: center;
+}
