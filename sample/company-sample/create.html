@@ -12,6 +12,8 @@
 </form>
 
 <script type="text/javascript">
+  menu.active('.menu-create');
+
   $('#company-save').click(function() {
     var company = new Company($('#name').val(), $('#number').val());
     company.save().done(function() {

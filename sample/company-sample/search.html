@@ -19,17 +19,11 @@
     </tr>
 </table>
 
-<div class="navigation-buttons">
-    <button class="btn add">Add</button>
-</div>
+    <script>
+    menu.active('.menu-search');
 
-<script>
     $('.search').click(function() {
         window.onhashchange();
-    });
-
-    $('.add').click(function(){
-        window.location.hash = "#create";
     });
 
     Company.query().done(function(companies) {

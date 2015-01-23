@@ -12,10 +12,7 @@
     <title>QUnit Page - Company Sample</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="vendor/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link href="vendor/css/scrolling-nav.css" rel="stylesheet">
+    <link href="vendor/css/bootstrap.css" rel="stylesheet">
 
     <link href="css/main.css" rel="stylesheet">
 </head>
@@ -29,7 +26,14 @@
     <div id="message" class="message">
     </div>
 
-    <div id="content">
+    <div class="menu">
+        <ul class="nav nav-pills nav-stacked">
+            <li role="presentation" class="active menu-search"><a href="#search">Search</a></li>
+            <li role="presentation" class="menu-create"><a href="#create">Create</a></li>
+        </ul>
+    </div>
+
+    <div id="content" class="content">
     </div>
 
     <div id="control-panel"></div>
@@ -47,6 +51,7 @@
     <script src="js/message.js"></script>
     <script src="js/developer.js"></script>
     <script src="js/control_panel.js"></script>
+    <script src="js/menu.js"></script>
 </body>
 
 </html>

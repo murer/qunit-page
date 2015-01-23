@@ -26,36 +26,8 @@ table th, table td {
     left: 47%;
 }
 
-.navigation-buttons {
-    margin-top: 40px;
-}
-
-.navigation-buttons a {
-    width: 150px;
-}
-
-h3.why-answer {
-    margin-top: 40px;
-}
-
-pre.how-code {
-    text-align: left;
-    width: 700px;
-    margin: auto;
-}
-
-.how-section {
-    height: 160%;
-    padding-top: 50px;
-    text-align: center;
-    background: #fff;
-}
-
-.download-section {
-    height: 200%;
-    padding-top: 30px;
-    text-align: center;
-    background: #eee;
+.content {
+    display: inline-block;
 }
 
 #control-panel {
@@ -66,4 +38,12 @@ pre.how-code {
     right: 30px;
     border-style: solid;
     border-width: 1px;
+}
+
+/** MENU **/
+
+.menu {
+    display: inline-block;
+    vertical-align: top;
+    margin: 10px 30px 0 10px;
 }
