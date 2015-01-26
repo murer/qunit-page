@@ -5,22 +5,19 @@
         <label>Name</label>
         <input type="text" class="form-control" name="name" />
     </div>
-
-    <div class="form-group">
-        <label>Number</label>
-        <input type="text" class="form-control" name="number" />
-    </div>
 </form>
 
-<div class="navigation-buttons">
-    <button class="btn btn-default search">Search</button>
-</div>
+<button class="btn btn-default search">Search</button>
 
-<table id="companies" class="table table-bordered table-hover display_none">
+<table id="companies" class="table table-bordered display_none">
+    <caption>Companies</caption>
     <tr>
         <th>Name</th>
-        <th>Identification Number</th>
+        <th>Number</th>
     </tr>
+    <tbody class="table-hover">
+
+    </tbody>
 </table>
 
 <script type="text/javascript">
@@ -32,6 +29,7 @@
 
     Company.query().done(function(companies) {
         var table = $('table#companies');
+        var tbody = table.find('tbody');
 
         $(companies).each(function(index, company) {
 
@@ -41,7 +39,7 @@
             tr += '  <td>' + company.identificationNumber + '</td>';
             tr += '</tr>';
 
-            table.append(tr);
+            tbody.append(tr);
         });
 
         table.show();

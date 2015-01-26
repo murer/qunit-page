@@ -9,4 +9,5 @@ developer.fill = function() {
 
 $(document).dblclick(function() {
   developer.fill();
+  $('input').first().focus();
 });

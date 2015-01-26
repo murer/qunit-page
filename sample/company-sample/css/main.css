@@ -21,7 +21,11 @@ input.form-control {
     display: inline-block;
 }
 
-#control-panel {
+.table {
+    margin-top: 10px;
+}
+
+.control-panel-content {
     position: absolute;
     width: 300px;
     height: 300px;
@@ -29,6 +33,17 @@ input.form-control {
     right: 30px;
     border-style: solid;
     border-width: 1px;
+    display: none;
+}
+
+.control-panel-visible {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+}
+
+table#companies th {
+    width: 200px;
 }
 
 /** MENU **/
