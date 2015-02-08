@@ -1,0 +1,27 @@
+<h1>Create</h1>
+
+<form>
+  <div class="form-group">
+    <label>Name</label>
+    <input type="text" class="form-control" id="name" />
+  </div>
+
+  <div class="form-group">
+    <label>Number</label>
+    <input type="text" class="form-control" id="number" />
+  </div>
+
+  <button class="btn btn-default search" id="company-save">Save</button>
+</form>
+
+<script type="text/javascript">
+  menu.active('.menu-create');
+
+  $('#company-save').click(function() {
+    var company = new Company($('#name').val(), $('#number').val());
+    company.save().done(function() {
+      message.success('Company saved');
+      window.location.hash = '#search';
+    });
+  });
+</script>

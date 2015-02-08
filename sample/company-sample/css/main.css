@@ -1,0 +1,60 @@
+input.form-control {
+    width: 200px;
+}
+
+.display_none {
+    display: none;
+}
+
+.message {
+    position: absolute;
+    right: 20px;
+}
+
+.loading-block {
+    font-size: 16pt;
+    position: absolute;
+    left: 47%;
+}
+
+.content {
+    display: inline-block;
+}
+
+.table {
+    margin-top: 10px;
+}
+
+.control-panel-content {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    top: 100px;
+    right: 30px;
+    border-style: solid;
+    border-width: 1px;
+    display: none;
+}
+
+.control-panel-visible {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+}
+
+table#companies th {
+    width: 200px;
+}
+
+/** MENU **/
+
+.menu {
+    display: inline-block;
+    vertical-align: top;
+    margin: 10px 30px 0 10px;
+}
+
+div.menu li {
+    width: 150px;
+    text-align: center;
+}
