@@ -32,6 +32,8 @@
 
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 
+    <a href="https://github.com/murer/qunit-page"><img style="position: absolute; top: 0; right: 0; border: 0; z-index: 2000;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
+
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container">
@@ -45,7 +47,6 @@
                 <a class="navbar-brand page-scroll" href="#page-top">QUnit Page</a>
             </div>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav">
                     <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
@@ -53,10 +54,10 @@
                         <a class="page-scroll" href="#page-top"></a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#why">Why?</a>
+                        <a class="page-scroll" href="#comparison">Comparison</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#how">How?</a>
+                        <a class="page-scroll" href="#getting-started">Getting Started</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="#download">Download</a>
@@ -77,11 +78,11 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h1>QUnit Page</h1>
-                    <p>An QUnit extension that allows you to <strong>easily</strong> write <strong>clean UI tests.</strong></p>
-                           
+                    <h4>A QUnit extension that allows you to write <strong>UI tests</strong> focused in <strong>user steps</strong>.</h4>
+
                     <div class="navigation-buttons">
-                        <a class="btn btn-default page-scroll" href="#why"><strong>Why</strong><br/> should I care?</a>
-                        <a class="btn btn-default page-scroll" href="#how"><strong>How</strong><br/> implement a test?</a>
+                        <a class="btn btn-default page-scroll" href="#comparison"><strong>Comparison</strong><br/> with other tools</a>
+                        <a class="btn btn-default page-scroll" href="#getting-started"><strong>How</strong><br/> implement a test?</a>
                         <a class="btn btn-default page-scroll" href="#download"><strong>Download</strong><br/> and configure</a>
                     </div>
                 </div>
@@ -89,31 +90,71 @@
         </div>
     </section>
 
-    <section id="why" class="about-section">
+    <section id="comparison" class="about-section">
         <div class="container">
-            <div class="why">
+            <div class="comparison">
                 <div class="col-lg-12">
-                    <h1>Why?</h1>
+                    <h1>Comparison</h1>
+                    <p>Here is a comparison with other awesome tools that may help you understanding the differences</p>
 
-                    <h3 class="why-answer">Centered in user steps</h3>
-                    <p>what makes it <strong>easy</strong> to write tests and helps you to <strong>avoid false negatives</strong></p>
-                        
-
-                    <h3 class="why-answer">Write your test code in javascript</h3>
-                    <p>what makes it <strong>easier to debug any false negative</strong></p>
-
-                    <h3 class="why-answer">No browser restriction</h3>
-                    <p>what makes it <strong>awesome</strong> :)</p>
+                    <table class="table-bordered tool-differences">
+                        <thead>
+                        <tr>
+                            <th>Tool</th>
+                            <th><p>Javascript</p><p class="detail">can write tests using javascript?</p></th>
+                            <th><p>Framework freedom</p><p class="detail">can test app writeen in any framework?</p></th>
+                            <th><p>Browser freedom</p><p class="detail">can test run in any browser?</p></th>
+                            <th><p>Steps centered</p><p class="detail">is it divided into steps?</p></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>QUnit Page</td>
+                                <td><img src="images/yes.png" /></td>
+                                <td><img src="images/yes.png" /></td>
+                                <td><img src="images/yes.png" /></td>
+                                <td><img src="images/yes.png" /></td>
+                            </tr>
+                            <tr>
+                                <td>Selenium / Capybara</td>
+                                <td><img src="images/no.png" /></td>
+                                <td><img src="images/yes.png" /></td>
+                                <td><img src="images/yes.png" /></td>
+                                <td><img src="images/no.png" /></td>
+                            </tr>
+                            <tr>
+                                <td>Casper</td>
+                                <td><img src="images/yes.png" /></td>
+                                <td><img src="images/yes.png" /></td>
+                                <td><img src="images/no.png" /></td>
+                                <td><img src="images/no.png" /></td>
+                            </tr>
+                            <tr>
+                                <td>Protactor</td>
+                                <td><img src="images/yes.png" /></td>
+                                <td><img src="images/no.png" /></td>
+                                <td><img src="images/yes.png" /></td>
+                                <td><img src="images/no.png" /></td>
+                            </tr>
+                            <tr>
+                                <td>QUnit / Jasmine</td>
+                                <td><img src="images/yes.png" /></td>
+                                <td><img src="images/yes.png" /></td>
+                                <td><img src="images/yes.png" /></td>
+                                <td><img src="images/no.png" /></td>
+                            </tr>
+                        </tbody>
+                    </table>
                  </div>
             </div>
         </div>
     </section>
 
-    <section id="how" class="how-section">
+    <section id="getting-started" class="how-section">
         <div class="container">
             <div class="how">
                 <div class="col-lg-12">
-                    <h1>How?</h1>
+                    <h1>Getting Started</h1>
 
                     <p>If it is indeed that simple, then just one sample must be enough to explain how to use it</p>
                     <pre class="how-code">
@@ -170,7 +211,7 @@
                     <div class="navigation-buttons">
                         <a class="btn btn-default" target="_blank" href="https://raw.githubusercontent.com/murer/qunit-page/qunit-page-1.0.5/src/qunit-page.js"><strong>Download</strong><br/>qunit-page-<strong>1.0.5</strong>.js</strong></a>
                     </div>
-                    
+
                     <h3>Create a page to run your tests</h3>
                     <p>Add required libs: jquery, qunit and qunit-page</p>
                     <p>Add your own javascript test files. Here is our <a target="_blank" href="http://murer.github.io/qunit-page/test/test.html">live demo</a> code:</p>
@@ -181,19 +222,19 @@
   &lt;meta charset=&quot;utf-8&quot;&gt;
   &lt;title&gt;QUnit Page Test&lt;/title&gt;
   &lt;link rel=&quot;stylesheet&quot; href=&quot;../lib/qunit.css&quot;&gt;
-  
+
   &lt;!-- Libs --&gt;
   &lt;script src=&quot;../lib/jquery.js&quot;&gt;&lt;/script&gt;
   &lt;script src=&quot;../lib/qunit.js&quot;&gt;&lt;/script&gt;
   &lt;script src=&quot;../src/qunit-page.js&quot;&gt;&lt;/script&gt;
-  
+
   &lt;!-- Yours test files --&gt;
   &lt;script src=&quot;qunit-page-poc.js&quot;&gt;&lt;/script&gt;
   &lt;script src=&quot;qunit-page-wait-test.js&quot;&gt;&lt;/script&gt;
-  &lt;script src=&quot;qunit-page-face-test.js&quot;&gt;&lt;/script&gt;   
+  &lt;script src=&quot;qunit-page-face-test.js&quot;&gt;&lt;/script&gt;
   &lt;script src=&quot;qunit-page-face-wait-test.js&quot;&gt;&lt;/script&gt;
   &lt;style&gt;
-	/* QUnit css make #qunit-fixture invisible. 
+	/* QUnit css make #qunit-fixture invisible.
 	   If you want see your pages you need to change like this */
 	#qunit-fixture {
 	    position: absolute;

@@ -1,9 +1,19 @@
+h1 {
+    font-size: 40px;
+    margin-bottom: 30px;
+}
+
+h4 {
+    font-weight: normal;
+    font-size: 23px;
+}
+
 .navigation-buttons {
     margin-top: 40px;
 }
 
 .navigation-buttons a {
-    width: 150px;
+    width: 180px;
 }
 
 h3.why-answer {
@@ -28,4 +38,41 @@ pre.how-code {
     padding-top: 30px;
     text-align: center;
     background: #eee;
+}
+
+table.tool-differences {
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+table.tool-differences caption {
+    text-align: left;
+    border-bottom-style: double;
+    border-bottom-width: 1px;
+    border-bottom-color: rgb(189, 189, 189);
+    margin-bottom: 5px;
+}
+
+table.tool-differences tr th {
+    width: 220px;
+    text-align: center;
+    background-color: #ECECEC;
+    height: 30px;
+}
+
+table.tool-differences tr td {
+    height: 30px;
+}
+
+table.tool-differences th p {
+    margin: 5px 0 5px 0px;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+table.tool-differences th p.detail {
+    font-size: 12px;
+    font-weight: normal;
+    font-style: italic;
 }
