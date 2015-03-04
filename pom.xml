@@ -16,7 +16,7 @@
 			<plugin>
 				<groupId>com.googlecode.mycontainer</groupId>
 				<artifactId>mycontainer-maven-plugin</artifactId>
-				<version>1.6.1-SNAPSHOT</version>
+				<version>1.6.2</version>
 				<executions>
 					<execution>
 						<phase>test</phase>
