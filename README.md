@@ -2,8 +2,7 @@
 
 An QUnit extension that allows you to easily write clean UI tests.
 
-[![Build Status](https://travis-ci.org/murer/qunit-page.png)](https://travis-ci.org/murer/qunit-page)
-[![Build Status](https://api.shippable.com/projects/540e7e673479c5ea8f9edad9/badge?branchName=master)](https://app.shippable.com/projects/540e7e673479c5ea8f9edad9/builds/latest)
+![Build Status](https://api.shippable.com/projects/540e7e673479c5ea8f9edad9/badge?branchName=master)](https://app.shippable.com/projects/540e7e673479c5ea8f9edad9/builds/latest)
 
 ## Features
 
