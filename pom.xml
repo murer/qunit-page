@@ -1,0 +1,45 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.googlecode.qunitpage</groupId>
+	<artifactId>qunitpage</artifactId>
+	<packaging>pom</packaging>
+	<name>qunitpage</name>
+	<version>1.0.0-SNAPSHOT</version>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<mycontainer.version>1.6.1-SNAPSHOT</mycontainer.version>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.googlecode.mycontainer</groupId>
+				<artifactId>mycontainer-maven-plugin</artifactId>
+				<version>${mycontainer.version}</version>
+				<executions>
+					<execution>
+						<inherited>false</inherited>
+						<phase>test</phase>
+						<goals>
+							<goal>us-ascii</goal>
+						</goals>
+						<configuration>
+							<filters>
+								<param>exclude:^.*/\.git/.*$</param>
+								<param>exclude:^.*/target/.*$</param>
+								<param>exclude:^.*\.ico$</param>
+								<param>exclude:^.*\.png$</param>
+								<param>include:^.*$</param>
+							</filters>
+						</configuration>
+					</execution>
+				</executions>
+				<configuration>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
