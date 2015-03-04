@@ -20,24 +20,48 @@
 				<version>${mycontainer.version}</version>
 				<executions>
 					<execution>
-						<inherited>false</inherited>
 						<phase>test</phase>
 						<goals>
 							<goal>us-ascii</goal>
+							<goal>phantomjs-install</goal>
+							<goal>web</goal>
 						</goals>
 						<configuration>
 							<filters>
 								<param>exclude:^.*/\.git/.*$</param>
 								<param>exclude:^.*/target/.*$</param>
+								<param>exclude:^.*/gen/.*$</param>
 								<param>exclude:^.*\.ico$</param>
 								<param>exclude:^.*\.png$</param>
+								<param>exclude:^.*qunit\.js$</param>
+								<param>exclude:^.*jquery\.easing\.min\.js$</param>
 								<param>include:^.*$</param>
 							</filters>
+							<dest>gen/phantomjs</dest>
+							<waitfor>false</waitfor>
 						</configuration>
 					</execution>
 				</executions>
-				<configuration>
-				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.3.2</version>
+				<executions>
+					<execution>
+						<phase>test</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>${mycontainer.phatomjs.executable}</executable>
+							<arguments>
+								<argument>phantomjs-test/run-qunit.js</argument>
+								<argument>http://localhost:${mycontainer.web.localport}/test/test.html</argument>
+							</arguments>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
