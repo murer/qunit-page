@@ -9,7 +9,6 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<mycontainer.version>1.6.1-SNAPSHOT</mycontainer.version>
 	</properties>
 
 	<build>
@@ -17,7 +16,7 @@
 			<plugin>
 				<groupId>com.googlecode.mycontainer</groupId>
 				<artifactId>mycontainer-maven-plugin</artifactId>
-				<version>${mycontainer.version}</version>
+				<version>1.6.1-SNAPSHOT</version>
 				<executions>
 					<execution>
 						<phase>test</phase>
