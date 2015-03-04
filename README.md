@@ -111,3 +111,9 @@ https://github.com/murer/qunit-page/tree/master/test
 ## Download
 
 http://murer.github.com/qunit-page/src/qunit-page.js
+
+## Devel
+
+Test:
+
+    mvn test
