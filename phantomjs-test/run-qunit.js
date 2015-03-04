@@ -53,6 +53,9 @@ page.open(system.args[1], function(status){
         console.log("Unable to access network");
         phantom.exit(1);
     } else {
+        page.evaluate(function() {
+            QUnit.Page.debug(0)
+        })
         waitFor(function(){
             return page.evaluate(function(){
                 var el = document.getElementById('qunit-testresult');

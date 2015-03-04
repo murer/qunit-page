@@ -174,7 +174,10 @@
         });
     }
     Page.debug = function(timeout) {
-        timeStep = timeout || 5000;
+        timeStep = timeout
+        if(!timeout && timeout !== 0) {
+            timeStep = 5000
+        }
         enableDebug = true;
     }
 
