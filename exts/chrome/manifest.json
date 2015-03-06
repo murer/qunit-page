@@ -1,0 +1,25 @@
+{
+  "manifest_version": 2,
+
+  "name": "QUnit Page",
+  "description": "It will help you write qunit page test. http://qunitpage.org/",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_icon": "qunitpage.png"
+  },
+
+  "background": {
+  	"scripts": [ "main.js" ],
+  	"persistent": false
+  },
+  
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+  
+   "content_scripts": [
+    {
+      "matches": ["http://murer.github.io/qunit-page/*"],
+      "js": ["jquery.js", "content.js"]
+    }
+  ]
+}

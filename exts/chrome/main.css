@@ -1,0 +1,12 @@
+
+#wrapper { width: 100%; height: 100% }
+
+#panel { display: inline-block; width: 48%; height: 500px; }
+
+#panel .editor { width: 100%; height: 450px }
+
+#panel .btns button { width: 48%; height: 30px }
+
+#result { width: 48%; height: 500px; display: inline-block; }
+
+#result iframe { width: 100%; height: 100% }

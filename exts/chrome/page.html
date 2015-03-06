@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+<head>
+<title>QUnit Page Panel</title>
+<link rel="stylesheet" href="main.css"></link>
+<script src="jquery.js"></script>
+<script src="panel.js"></script>
+</head>
+<body>
+	<div id="wrapper">
+		<div id="panel">
+			<form action="#">
+				<textarea class="editor">
+(function(t, $) {
+
+
+	t.module('QUnitPage Face Wait Test');
+
+	t.pageTest("page wait ajax", function(page) {
+
+		page.open('http://murer.github.io/qunit-page/test/panel.html');
+
+		page.step('clicking ajax', [ '.ajax' ], function(link) {
+			link.click();
+		});
+
+		page.step('check count 1', [ '.result:contains("Count: 1")' ], function(result) {
+			t.equal(result.text(), 'Count: 1');
+		});
+
+		page.step('clicking ajax again', [ '.ajax', '.result' ], function(link, result) {
+			link.click();
+			t.equal(result.text(), 'Loading');
+		});
+
+		page.step('checking count 2', [ '.result:not(:contains("Loading"))' ], function(result) {
+			t.equal(result.text(), 'Count: 2');
+		});
+
+	});
+
+})(QUnit, jQuery);
+			</textarea>
+			<div class="btns">
+				<button>Run</button>
+			</div>
+			</form>
+		</div>
+		<div id="result">
+			<iframe src="result.html"></iframe>
+		</div>
+	</div>
+</body>
+</html>
+
