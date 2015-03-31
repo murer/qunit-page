@@ -2,6 +2,8 @@
 
 An QUnit extension that allows you to easily write clean UI tests.
 
+http://qunitpage.org
+
 [![Build Status](https://api.shippable.com/projects/540e7e673479c5ea8f9edad9/badge?branchName=master)](https://app.shippable.com/projects/540e7e673479c5ea8f9edad9/builds/latest)
 
 ## Features
@@ -9,9 +11,6 @@ An QUnit extension that allows you to easily write clean UI tests.
 - Centered in user steps (help you to avoid false negatives)
 - Write your code in javascript (help you to debbug any false negative)
 - No browser restriction (ex: Chrome, Firefox, PhantomJS)
-
-You can see here a more detailed explanation why you should care about these features.
-http://qunitpage.org
 
 ## Implementing a test
 
