@@ -11,10 +11,12 @@
 
 <table id="companies" class="table table-bordered display_none">
     <caption>Companies</caption>
-    <tr>
-        <th>Name</th>
-        <th>Number</th>
-    </tr>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Number</th>
+        </tr>
+    </thead>
     <tbody class="table-hover">
 
     </tbody>
@@ -30,6 +32,7 @@
     Company.query().done(function(companies) {
         var table = $('table#companies');
         var tbody = table.find('tbody');
+        tbody.html('');
 
         $(companies).each(function(index, company) {
 
