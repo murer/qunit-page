@@ -3,12 +3,25 @@
 <head>
   <meta charset="utf-8">
   <title>QUnit Page Test</title>
+
+  <!-- Libs -->
   <link rel="stylesheet" href="../../../lib/qunit.css">
   <script src="../vendor/js/jquery-1.11.0.js"></script>
   <script src="../../../lib/qunit.js"></script>
   <script src="../../../src/qunit-page.js"></script>
 
+  <!-- Yours test files -->
   <script src="company-test.js"></script>
+
+  <!-- QUnit css make #qunit-fixture invisible.
+  If you want see the test navigating in your pages you need to change like this -->
+  <style>
+    #qunit-fixture {
+      position: absolute;
+      width: 1200px;
+      height: 800px;
+    }
+  </style>
 </head>
 <body>
 <div id="qunit"></div>

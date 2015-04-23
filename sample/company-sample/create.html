@@ -11,17 +11,19 @@
     <input type="text" class="form-control" id="number" />
   </div>
 
-  <button class="btn btn-default search" id="company-save">Save</button>
+  <button class="btn btn-default search" id="save">Save</button>
 </form>
 
 <script type="text/javascript">
   menu.active('.menu-create');
 
-  $('#company-save').click(function() {
+  $('#save').click(function() {
     var company = new Company($('#name').val(), $('#number').val());
     company.save().done(function() {
       message.success('Company saved');
       window.location.hash = '#search';
     });
+
+    return false;
   });
 </script>

@@ -72,7 +72,7 @@ h3.why-answer {
     margin-top: 40px;
 }
 
-pre.how-code {
+pre {
     text-align: left;
     width: 700px;
     margin: auto;
@@ -86,7 +86,7 @@ pre.how-code {
 }
 
 .download-section {
-    height: 140%;
+    height: 220%;
     padding-top: 50px;
     text-align: center;
     background: #fff;
@@ -135,10 +135,14 @@ table.tool-differences th p.detail {
 
 .configuration-steps p {
     text-align: left;
+    margin-top: 35px;
 }
 
 .code-title {
-    margin-top: 40px;
     font-size: 15pt;
     display: block;
+}
+
+pre.company-test-file {
+    width: 955px;
 }

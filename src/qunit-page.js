@@ -1,7 +1,7 @@
 (function(QUnit, $) {
 
     var timeStep = 1;
-    var enableDebug = false;
+    var enableDebug = true;
 
     QUnit.match = function(actual, expected, message) {
         QUnit.push(!!actual.match(expected), actual, expected, message);

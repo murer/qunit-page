@@ -57,7 +57,7 @@
                         <a class="page-scroll" href="#getting-started">Getting Started</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#download">Configuration</a>
+                        <a class="page-scroll" href="#download">Example</a>
                     </li>
                     <li>
                     	<a target="_blank" href="http://murer.github.io/qunit-page/test/test.html">Live Demo</a>
@@ -203,48 +203,80 @@
             <div class="download">
                 <div class="col-lg-12">
                     <h1>Configuration</h1>
+                    <span class="code-title">Here's a test for <a href="../sample/company-sample/index.html?#search" target="_blank">this small application</a>. You can see it running <a target="_blank" href="../sample/company-sample/test/company-test.html">here</a>.</span>
+
                     <div class="configuration-steps">
                         <p><strong>1.</strong> Create a new HTML page to run your application tests</p>
-                        <p><strong>2.</strong> Add required libs: jquery, qunit and qunit-page</p>
-                        <p><strong>3.</strong> Add your own javascript test files</p>
                     </div>
-                    <span class="code-title">For example, here is our <a target="_blank" href="http://murer.github.io/qunit-page/test/test.html">live demo</a> code:</span>
                     <pre class="how-code">
 &lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;head&gt;
-  &lt;meta charset=&quot;utf-8&quot;&gt;
-  &lt;title&gt;QUnit Page Test&lt;/title&gt;
-  &lt;link rel=&quot;stylesheet&quot; href=&quot;../lib/qunit.css&quot;&gt;
+ &lt;meta charset=&quot;utf-8&quot;&gt;
+ &lt;title&gt;QUnit Page Test&lt;/title&gt;
 
-  &lt;!-- Libs --&gt;
-  &lt;script src=&quot;../lib/jquery.js&quot;&gt;&lt;/script&gt;
-  &lt;script src=&quot;../lib/qunit.js&quot;&gt;&lt;/script&gt;
-  &lt;script src=&quot;../src/qunit-page.js&quot;&gt;&lt;/script&gt;
+ &lt;!-- Libs --&gt;
+ &lt;link rel=&quot;stylesheet&quot; href=&quot;../../../lib/qunit.css&quot;&gt;
+ &lt;script src=&quot;../vendor/js/jquery-1.11.0.js&quot;&gt;&lt;/script&gt;
+ &lt;script src=&quot;../../../lib/qunit.js&quot;&gt;&lt;/script&gt;
+ &lt;script src=&quot;../../../src/qunit-page.js&quot;&gt;&lt;/script&gt;
 
-  &lt;!-- Yours test files --&gt;
-  &lt;script src=&quot;qunit-page-poc.js&quot;&gt;&lt;/script&gt;
-  &lt;script src=&quot;qunit-page-wait-test.js&quot;&gt;&lt;/script&gt;
-  &lt;script src=&quot;qunit-page-face-test.js&quot;&gt;&lt;/script&gt;
-  &lt;script src=&quot;qunit-page-face-wait-test.js&quot;&gt;&lt;/script&gt;
-  &lt;style&gt;
-	/* QUnit css make #qunit-fixture invisible.
-	   If you want see your pages you need to change like this */
-	#qunit-fixture {
-	    position: absolute;
-	    width: 1200px;
-	    height: 800px;
- 	}
-  &lt;/style&gt;
+ &lt;!-- Your test files --&gt;
+ &lt;script src=&quot;company-test.js&quot;&gt;&lt;/script&gt;
+
+ &lt;!-- QUnit css make #qunit-fixture invisible.
+ If you want see the test navigating in your pages you need to change like this --&gt;
+ &lt;style&gt;
+    #qunit-fixture {
+        position: absolute;
+        width: 1200px;
+        height: 800px;
+    }
+ &lt;/style&gt;
 &lt;/head&gt;
 &lt;body&gt;
-  &lt;div id=&quot;qunit&quot;&gt;&lt;/div&gt;
-  &lt;div id=&quot;qunit-fixture&quot;&gt;&lt;/div&gt;
+&lt;div id=&quot;qunit&quot;&gt;&lt;/div&gt;
+&lt;div id=&quot;qunit-fixture&quot;&gt;&lt;/div&gt;
 &lt;/body&gt;
 &lt;/html&gt;
                     </pre>
-                    <p><strong>Note: </strong>qunit-page-poc.js, qunit-page-wait-test.js are some test files of live demo, you need to create your own</p>
+                    <p><strong>Note: </strong>company-test.js is a file for this test, you need to create your own</p>
 
+                    <div class="configuration-steps">
+                        <p><strong>2.</strong> Add your own javascript test files (<strong>company-test.js</strong> in our case)</p>
+                    </div>
+                    <pre class="company-test-file">
+(function(t) {
+
+   t.module(&#39;Company CRUD Test&#39;);
+
+      t.pageTest(&quot;Create and Search&quot;, function(page) {
+
+         page.open(&#39;/sample/company-sample/index.html&#39;);
+
+         page.step(&#39;Go to create page&#39;, [&#39;a[href=#create]&#39;], function(createLink) {
+            page.click(createLink);
+         });
+
+         page.step(&#39;Create user&#39;, [&#39;#name&#39;, &#39;#number&#39;, &#39;#save&#39;], function(name, number, saveButton) {
+             name.val(&#39;Andrei Tognolo&#39;);
+             number.val(&#39;123&#39;);
+             page.click(saveButton);
+         });
+
+         // Note: we don&#39;t use the h1, but we need to wait it to guarantee that the save process is done
+         page.step(&#39;Search&#39;, [&#39;h1:contains(Search)&#39;, &#39;#name&#39;, &#39;button#search&#39;], function(title, name, searchButton) {
+             name.val(&#39;Andrei Tognolo&#39;);
+             page.click(searchButton);
+         });
+
+         // Note: we don&#39;t need to assert anything here, because if Andrei is not present it would be stuck
+         page.step(&#39;Check for table element&#39;, [&#39;tr td:contains(Andrei Tognolo)&#39;], function(td) {
+
+      });
+   });
+})(QUnit);
+                    </pre>
                 </div>
             </div>
         </div>
