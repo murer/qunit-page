@@ -1,4 +1,4 @@
 language: java
-install: mvn clean install -Dmaven.test.skip.exec
-script: mvn test
+install: mvn clean install -Dmaven.test.skip.exec -B
+script: mvn test -B
 
