@@ -4,6 +4,9 @@ An QUnit extension that allows you to easily write clean UI tests.
 
 http://qunitpage.org
 
+[![Build Status](https://snap-ci.com/murer/qunit-page/branch/master/build_image)](https://snap-ci.com/murer/qunit-page/branch/master)
+[![Build Status](https://api.shippable.com/projects/540e7e673479c5ea8f9edad9/badge?branchName=master)](https://app.shippable.com/projects/540e7e673479c5ea8f9edad9/builds/latest)
+
 ## Features
 
 - Centered in user steps (help you to avoid false negatives)
