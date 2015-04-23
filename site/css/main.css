@@ -79,17 +79,17 @@ pre.how-code {
 }
 
 .how-section {
-    height: 160%;
-    padding-top: 50px;
-    text-align: center;
-    background: #fff;
-}
-
-.download-section {
-    height: 160%;
+    height: 150%;
     padding-top: 50px;
     text-align: center;
     background: #eee;
+}
+
+.download-section {
+    height: 140%;
+    padding-top: 50px;
+    text-align: center;
+    background: #fff;
 }
 
 table.tool-differences {
@@ -127,4 +127,18 @@ table.tool-differences th p.detail {
     font-size: 12px;
     font-weight: normal;
     font-style: italic;
+}
+
+.configuration-steps {
+    display: inline-block;
+}
+
+.configuration-steps p {
+    text-align: left;
+}
+
+.live-code-example-title {
+    margin-top: 40px;
+    font-size: 15pt;
+    display: block;
 }
