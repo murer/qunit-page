@@ -13,7 +13,7 @@
     });
   }
 
-  t.test('should identity the pageTestFunction', function() {
+  t.test('should identify the pageTestFunction', function() {
     var parseResult = new Parser(pageTestInDevelopment).parse();
     t.ok(parseResult.originalPageTestFunction.indexOf('page.open') != -1);
   });
