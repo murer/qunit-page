@@ -26,7 +26,7 @@
 
 (function(t) {
 
-  t.module('ParserUtils - substringAfter');
+  t.module('ParserUtils: substringAfter');
 
   t.test('should return what remains after the first match', function() {
     t.equal(ParserUtils.substringAfter('abbcbbd', 'bb'), 'cbbd');
@@ -35,23 +35,19 @@
 
 (function(t) {
 
-  t.module('ParserUtils - nextBlock');
+  t.module('ParserUtils: nextBlock');
 
   var block1 =  "   page.step('step1', ['a', 'b'], function(a, b) { });";
   var block2 =  "   page.step('step2', ['a', 'b'], function(a, b) { });";
   var bothBlocks = block1 + block2;
 
-  t.test('nextBlock should start with page.step', function() {
-    var codeBlock = ParserUtils.nextBlock(bothBlocks);
+  t.test('should start with page.step', function() {
+    var codeBlock = ParserUtils.nextBlock(bothBlocks.trim());
     t.equal(codeBlock.content.indexOf('page.step'), 0);
   });
 
-  t.test('nextBlock should be only the first block', function() {
-    var codeBlock = ParserUtils.nextBlock(bothBlocks);
+  t.test('should be only the first block', function() {
+    var codeBlock = ParserUtils.nextBlock(bothBlocks.trim());
     t.equal(codeBlock.content, block1.trim());
-  });
-
-  t.test('nextBlock should identify the end of the parser', function() {
-    t.ok(true);
   });
 })(QUnit);

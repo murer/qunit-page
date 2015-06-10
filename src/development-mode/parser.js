@@ -12,12 +12,14 @@ function ParserResult(func) {
   var self = this;
   self.pageTestName = undefined;
   self.originalPageTestFunction = func;
-  self.pageTestFunction = func;
+  self.pageTestFunction = func; //FIXME - remove, side effect
   self.codeBlocks = [];
   self.readPosition = 0;
 
   (function initialize() {
-    self.codeBlocks.push('page open place holder');
+    // page.open place holder
+    self.codeBlocks.push(new CodeBlock("page.open('place_holder');"));
+    self.pageTestFunction = self.pageTestFunction.substring(self.pageTestFunction.indexOf('page.step'));
 
     var currentBlock = nextBlock(self.pageTestFunction);
     while (currentBlock) {
@@ -32,9 +34,12 @@ function ParserResult(func) {
     var position = content.indexOf('page.step');
     if (position == -1) return undefined;
 
-    self.pageTestFunction = content.substring(position + 'page.test'.length + 1);
+    var block = ParserUtils.nextBlock(content);
 
-    return new CodeBlock('a');
+    self.pageTestFunction = self.pageTestFunction.substring(block.content.length);
+    self.pageTestFunction = self.pageTestFunction.trim();
+
+    return block;
   }
 }
 

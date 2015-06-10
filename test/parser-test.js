@@ -28,4 +28,11 @@
     t.equal(parseResult.codeBlocks.length, 3);
   });
 
+  t.test('should have one page.open and two page.step blocks', function() {
+    var parseResult = new Parser(pageTestInDevelopment).parse();
+    t.equal(parseResult.codeBlocks[0].content.indexOf('page.open'), 0);
+    t.equal(parseResult.codeBlocks[1].content.indexOf('page.step'), 0);
+    t.equal(parseResult.codeBlocks[2].content.indexOf('page.step'), 0);
+  });
+
 }(QUnit));

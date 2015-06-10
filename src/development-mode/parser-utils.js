@@ -26,11 +26,14 @@ var ParserUtils = {};
   }
 
   function nextBlock(value) {
-    value = value.trim();
+    if (value.indexOf('page.step') != 0) {
+      throw 'Block should start with page.step but has "' + value.substring(0, 4) + "...'";
+    }
 
     var valueAfterParentheses = substringAfter(value, 'page.step(');
     var blockContent = valueAfterParentheses.substring(0, nextCloseParentheses(valueAfterParentheses));
     var codeBlockAsString = 'page.step(' + blockContent + ');';
+
     return new CodeBlock(codeBlockAsString);
   }
 
