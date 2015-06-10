@@ -33,9 +33,6 @@ function ParserResult(func) {
   })();
 
   function nextBlock(content) {
-    var position = content.indexOf('page.step');
-    if (position == -1) return undefined;
-
     return ParserUtils.nextBlock(content);
   }
 }
@@ -43,6 +40,6 @@ function ParserResult(func) {
 function CodeBlock(content) {
 
   var self = this;
-  self.content = content;
+  self.content = content.trim();
 
 }
