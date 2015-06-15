@@ -19,7 +19,7 @@ function ParserResult(func) {
     var pageTestFunction = self.originalPageTestFunction;
 
     // FIXME - page.open place holder
-    self.codeBlocks.push(new CodeBlock("page.open('place_holder');"));
+    self.codeBlocks.push(new CodeBlock("page.open('panel.html');"));
     pageTestFunction = pageTestFunction.substring(pageTestFunction.indexOf('page.step'));
 
     var currentBlock = nextBlock(pageTestFunction);

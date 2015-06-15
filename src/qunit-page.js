@@ -1,10 +1,17 @@
 (function(QUnit, $) {
 
+    // FIXME - Get it from URL
+    var developmentMode = true;
     var timeStep = 1;
     var enableDebug = true;
 
     QUnit.match = function(actual, expected, message) {
         QUnit.push(!!actual.match(expected), actual, expected, message);
+    }
+
+
+    function developerPanel() {
+        return $('body').find('#qunit-developer-panel');
     }
 
     function log() {
@@ -252,6 +259,7 @@
     });
 
     function executeTest(page) {
+        console.log('executeTest length', page.steps.length);
         if (!page.steps.length) {
             return;
         }
@@ -304,7 +312,69 @@
         });
     }
 
+    function addStepsIntoDeveloperPanel(page, parseResult) {
+        $(parseResult.codeBlocks).each(function(index, codeBlock) {
+            var printableFunc = codeBlock.content;
+            var div = '<div class="step">';
+            div += '<span>' + printableFunc + '</span>';
+            div += '</div>';
+            div = $(div);
+
+            developerPanel().append(div);
+        });
+    }
+
+    function runInDeveloperPanel(page) {
+        var codeBlocks = developerPanel().find('.step');
+
+        QUnit.test('Running from developer panel', function(assert) {
+            log('pageTest', name);
+            var page = new Page();
+            QUnit.page = page;
+            page.name = name;
+            prepareFrame(page);
+            prepareBefore(page);
+
+            //$(codeBlocks).each(function(index, divCodeBlock) {
+            //    divCodeBlock = $(divCodeBlock);
+            //    var codeBlockContent = divCodeBlock.find('span').text();
+            //    console.log(codeBlockContent);
+            //});
+            page.open('panel.html');
+
+            page.step('test', [], function() {
+                console.log('stopping');
+                page.stop();
+            });
+
+            assert.ok(false);
+            prepareAfter(page);
+            simpleAssert(page);
+            executeTest(page);
+        });
+    }
+
+    function pageTestInDevelopment(name, func) {
+        var parseResult = new Parser(func).parse();
+
+        //QUnit.test('test for development panel', function(assert) {
+        //    var page = new Page();
+        //    QUnit.page = page;
+        //    page.name = name;
+        //
+        //    $('body').append('<div id="qunit-developer-panel"></div>');
+        //
+        //    addStepsIntoDeveloperPanel(page, parseResult);
+        //
+        //    assert.ok(true);
+        //});
+        //
+        //runInDeveloperPanel();
+    }
+
     function pageTest(name, func) {
+        if (developmentMode) return;
+
         QUnit.test(name, function() {
             log('pageTest', name);
             var page = new Page();
@@ -319,6 +389,7 @@
         });
     }
 
+    QUnit.pageTestInDevelopment = pageTestInDevelopment;
     QUnit.pageTest = pageTest;
     QUnit.waitFor = waitFor;
     QUnit.Page = Page;
