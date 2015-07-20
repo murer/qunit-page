@@ -2,3 +2,7 @@ target
 gen
 *~
 .idea
+.project
+.classpath
+.settings
+
