@@ -21,7 +21,7 @@
     var company = new Company($('#name').val(), $('#number').val());
     company.save().done(function() {
       message.success('Company saved');
-      window.location.hash = '#search';
+      window.location.hash = '#message_success';
     });
 
     return false;
