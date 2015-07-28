@@ -10,10 +10,10 @@
       page.click(createLink);
     });
 
-    page.step('Create user', ['#name', '#number', '#save'], function(name, number, saveButton) {
+    page.step('Create user', ['#name', '#number', '#save'], function(name, number, save) {
       name.val('Andrei Tognolo');
       number.val('123');
-      page.click(saveButton);
+      page.click(save);
     });
 
     // Note: we don't use the h1, but we need to wait it to guarantee that the save process is done
