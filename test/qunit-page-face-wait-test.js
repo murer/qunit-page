@@ -2,7 +2,7 @@
 
 	t.module('QUnitPage Face Wait Test');
 
-	t.pageTestInDevelopment("page wait ajax", function(page) {
+	t.pageTest("page wait ajax", function(page) {
 
 		page.open('panel.html');
 
