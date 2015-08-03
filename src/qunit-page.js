@@ -322,16 +322,16 @@
     function addStepsIntoDeveloperPanel(parseResult) {
         $(parseResult.codeBlocks).each(function(index, codeBlock) {
             var printableFunc = codeBlock.content;
-            printableFunc =  replaceAll(printableFunc, '\n', '<br/>');
-            printableFunc =  replaceAll(printableFunc, '\t', '.');
+            printableFunc = replaceAll(printableFunc, '\n', '<br/>');
+            printableFunc = replaceAll(printableFunc, '\t', '.');
 
             var div = '<div class="step">';
             div += '<span>' + printableFunc + '</span>';
             div += '</div>';
             div = $(div);
 
+            codeBlock.div = div;
             developerPanel().append(div);
-            console.log('adding...', developerPanel());
         });
     }
 
@@ -344,29 +344,35 @@
         });
 
         QUnit.test('Running from developer panel', function (assert) {
-            console.log('start test', developerPanel().length);
+            var t = QUnit; // make it available inside each codeBlock
 
-            log('pageTest', name);
             var page = new Page();
             QUnit.page = page;
             page.name = name;
             prepareFrame(page);
-            prepareBefore(page);
-            //$(codeBlocks).each(function(index, divCodeBlock) {
-            //    divCodeBlock = $(divCodeBlock);
-            //    var codeBlockContent = divCodeBlock.find('span').text();
-            //    console.log(codeBlockContent);
-            //});
-            page.open('panel.html');
-            page.step('test', [], function () {
-                console.log('stopping');
-                page.stop();
-            });
-            prepareAfter(page);
-            simpleAssert(page);
+            QUnit.ok(1);
+
+            var codeBlockIndex = 0;
+            blockCodeExecuted();
             executeTest(page);
-            console.log('end test', developerPanel().length);
-            console.log('g end test', gdeveloperPanel().length);
+
+            function blockCodeExecuted() {
+                page.step('development-mode-wait', [], function() {
+                    console.log('developer mode');
+                    if (codeBlockIndex >= parseResult.codeBlocks.length) return;
+
+                    var currentCodeBlock = parseResult.codeBlocks[codeBlockIndex];
+
+                    if (codeBlockIndex != 0) parseResult.codeBlocks[codeBlockIndex -1].div.removeClass('currentExecutingStep');
+                    currentCodeBlock.div.addClass('currentExecutingStep');
+
+                    eval(currentCodeBlock.content);
+                    blockCodeExecuted();
+                    executeTest(page);
+
+                    codeBlockIndex++;
+                });
+            }
         });
     }
 
