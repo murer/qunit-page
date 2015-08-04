@@ -353,12 +353,11 @@
             QUnit.ok(1);
 
             var codeBlockIndex = 0;
-            blockCodeExecuted();
+            codeBlockExecuted();
             executeTest(page);
 
-            function blockCodeExecuted() {
+            function codeBlockExecuted() {
                 page.step('development-mode-wait', [], function() {
-                    console.log('developer mode');
                     if (codeBlockIndex >= parseResult.codeBlocks.length) return;
 
                     var currentCodeBlock = parseResult.codeBlocks[codeBlockIndex];
@@ -367,7 +366,7 @@
                     currentCodeBlock.div.addClass('currentExecutingStep');
 
                     eval(currentCodeBlock.content);
-                    blockCodeExecuted();
+                    codeBlockExecuted();
                     executeTest(page);
 
                     codeBlockIndex++;
