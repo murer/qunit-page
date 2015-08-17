@@ -19,7 +19,7 @@ function ParserResult(func) {
     var pageTestFunction = self.originalPageTestFunction;
 
     // FIXME - page.open place holder
-    self.codeBlocks.push(new CodeBlock("page.open('panel.html');"));
+    self.codeBlocks.push(new CodeBlock(undefined, "page.open('panel.html');"));
     pageTestFunction = pageTestFunction.substring(pageTestFunction.indexOf('page.step'));
 
     var currentBlock = nextBlock(pageTestFunction);
@@ -37,9 +37,15 @@ function ParserResult(func) {
   }
 }
 
-function CodeBlock(content) {
+function CodeBlock(name, content) {
 
   var self = this;
-  self.content = content.trim();
 
+  if (name) {
+    name = ParserUtils.replaceAll(name, "'", '');
+    name = ParserUtils.replaceAll(name, '"', '');
+    self.name = name;
+  }
+
+  self.content = content.trim();
 }

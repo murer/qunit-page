@@ -31,6 +31,12 @@
     t.equal(parseResult.codeBlocks[2].content.indexOf('page.step'), 0);
   });
 
+  t.test('should identify the name of the step', function() {
+    var parseResult = new Parser(pageTestInDevelopment).parse();
+    t.equal(parseResult.codeBlocks[1].name, 'step1');
+    t.equal(parseResult.codeBlocks[2].name, 'step2');
+  });
+
 }(QUnit));
 
 (function(t) {

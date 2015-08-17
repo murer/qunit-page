@@ -20,6 +20,11 @@ var ParserUtils = {};
     throw 'ThereIsNoClosingParentheses';
   }
 
+  function substringBefore(value, match) {
+    var posInit = value.indexOf(match);
+    return value.substring(0, posInit);
+  }
+
   function substringAfter(value, match) {
     var posInit = value.indexOf(match);
     return value.substring(posInit + match.length);
@@ -27,10 +32,11 @@ var ParserUtils = {};
 
   function newPageStepBlock(value) {
     var valueAfterParentheses = substringAfter(value, 'page.step(');
+    var name = substringBefore(valueAfterParentheses, ',');
     var blockContent = valueAfterParentheses.substring(0, nextCloseParentheses(valueAfterParentheses));
     var codeBlockAsString = 'page.step(' + blockContent + ');';
 
-    return new CodeBlock(codeBlockAsString);
+    return new CodeBlock(name, codeBlockAsString);
   }
 
   function newUnknownBlock(value) {
@@ -41,7 +47,7 @@ var ParserUtils = {};
     }
 
     var codeBlockAsString = value.substring(0, endPosition);
-    return new CodeBlock(codeBlockAsString);
+    return new CodeBlock(undefined, codeBlockAsString);
   }
 
   function nextBlock(value) {
@@ -54,7 +60,16 @@ var ParserUtils = {};
     }
   }
 
+  function replaceAll(value, from, to) {
+    while (value.indexOf(from) >= 0) {
+      value = value.replace(from, to);
+    }
+
+    return value;
+  }
+
   ParserUtils.nextCloseParentheses = nextCloseParentheses;
   ParserUtils.substringAfter = substringAfter;
   ParserUtils.nextBlock = nextBlock;
+  ParserUtils.replaceAll = replaceAll;
 })();
