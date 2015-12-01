@@ -1,6 +1,6 @@
 # [QUnit Page](http://qunitpage.org)
 
-An QUnit extension that allows you to easily write clean UI tests.
+A QUnit extension that allows you to easily write clean UI tests.
 
 [![Build Status](https://snap-ci.com/murer/qunit-page/branch/master/build_image)](https://snap-ci.com/murer/qunit-page/branch/master)
 
