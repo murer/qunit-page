@@ -118,7 +118,7 @@
     function prepareStep(page, name, deps, func) {
         if (!func) {
             if (!deps) {
-                throw 'step function is required';
+                throw 'function not provided for step called: ' + name;
             }
             if(typeof(name) == 'string'){
                 return prepareStep(page, name, [], deps);
