@@ -1,6 +1,6 @@
 {
   "name": "qunit-page",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "main": "src/qunit-page.js",
   "scripts": {
@@ -11,7 +11,8 @@
     "url": "git+https://github.com/murer/qunit-page.git"
   },
   "files": [
-    "src/qunit-page.js"
+    "src/qunit-page.js",
+    "phantomjs-test/run-qunit.js"
   ],
   "keywords": [
     "qunit",
