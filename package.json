@@ -1,0 +1,28 @@
+{
+    "name": "qunit-page",
+    "version": "1.1.2",
+    "description": "",
+    "main": "src/qunit-page.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/murer/qunit-page.git"
+    },
+    "files": [
+        "src/qunit-page.js",
+        "phantomjs-test/run-qunit.js"
+    ],
+    "keywords": [
+        "qunit",
+        "pages",
+        "test"
+    ],
+    "author": "murer",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/murer/qunit-page/issues"
+    },
+    "homepage": "https://github.com/murer/qunit-page#readme"
+}

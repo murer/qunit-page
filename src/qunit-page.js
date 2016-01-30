@@ -8,7 +8,7 @@
     }
 
     function log() {
-        if (!enableDebug || typeof (console) == 'undefined') {
+        if (!enableDebug || typeof(console) == 'undefined') {
             return;
         }
         console.info.apply(console, arguments);
@@ -16,10 +16,10 @@
 
     function extend(target) {
         if (arguments.length >= 2) {
-            for ( var i = 1; i < arguments.length; i++) {
+            for (var i = 1; i < arguments.length; i++) {
                 var arg = arguments[i];
                 if (arg) {
-                    for ( var k in arg) {
+                    for (var k in arg) {
                         target[k] = arg[k];
                     }
                 }
@@ -30,12 +30,12 @@
 
     function waitFor(wait) {
 
-        if (typeof (wait) == 'function') {
-            return waitFor([ wait ]);
+        if (typeof(wait) == 'function') {
+            return waitFor([wait]);
         }
 
         function check(entry) {
-            for ( var i = 0; i < entry.wait.length; i++) {
+            for (var i = 0; i < entry.wait.length; i++) {
                 if (!entry.wait[i]()) {
                     return false;
                 }
@@ -66,8 +66,8 @@
         }
 
         return {
-            wait : wait,
-            done : function(callback) {
+            wait: wait,
+            done: function(callback) {
                 this._done = callback;
                 this.init = new Date().getTime();
                 this._timeout = this._timeout || function() {
@@ -77,8 +77,8 @@
                 makeWait(this);
                 return this;
             },
-            timeout : function(callback, time) {
-                if (typeof (callback) == 'number') {
+            timeout: function(callback, time) {
+                if (typeof(callback) == 'number') {
                     time = callback;
                     callback = null;
                 }
@@ -91,7 +91,7 @@
 
     function getAllDeps(page, deps) {
         function prepareDep(dep) {
-            if (typeof (dep) == 'string') {
+            if (typeof(dep) == 'string') {
                 return function() {
                     var $ = page.global('jQuery');
                     if (!$) {
@@ -104,7 +104,7 @@
             return dep;
         }
         var ret = [];
-        for ( var i = 0; i < deps.length; i++) {
+        for (var i = 0; i < deps.length; i++) {
             var dep = deps[i];
             dep = prepareDep(dep);
             ret[i] = dep();
@@ -120,25 +120,33 @@
             if (!deps) {
                 throw 'function not provided for step called: ' + name;
             }
-            if(typeof(name) == 'string'){
+            if (typeof(name) == 'string') {
                 return prepareStep(page, name, [], deps);
             }
             return prepareStep(page, '', name, deps);
         }
         return {
-            name : name,
-            func : function() {
+            name: name,
+            func: function() {
                 var objs = [];
                 if (deps.length) {
                     var objs = getAllDeps(page, deps);
-                    for ( var i = 0; i < objs.length; i++) {
+                    for (var i = 0; i < objs.length; i++) {
                         if (!objs[i]) {
-                            log('waiting for', deps[i]);
                             return page.retry();
                         }
                     }
                 }
                 func.apply(this, objs);
+            },
+            incomplete: function() {
+                var failed = [];
+                getAllDeps(page, deps).forEach(function(obj, i) {
+                    if (!obj) {
+                        failed.push(deps[i]);
+                    }
+                });
+                return failed;
             }
         }
     }
@@ -175,7 +183,7 @@
     }
     Page.debug = function(timeout) {
         timeStep = timeout
-        if(!timeout && timeout !== 0) {
+        if (!timeout && timeout !== 0) {
             timeStep = 5000
         }
         enableDebug = true;
@@ -189,43 +197,43 @@
 
     Page.fn = Page.prototype;
     extend(Page.prototype, {
-        log : log,
-        step : function(name, deps, func) {
+        log: log,
+        step: function(name, deps, func) {
             this.steps.push(prepareStep(this, name, deps, func));
         },
-        stop : function() {
+        stop: function() {
             this._stop = true;
         },
-        start : function() {
+        start: function() {
             this._stop = false;
             QUnit.start();
             executeTest(this);
         },
-        intervane : function(step) {
+        intervane: function(step) {
             this.steps.unshift({
-                func : step
+                func: step
             });
         },
-        fixture : function() {
+        fixture: function() {
             return $('#qunit-fixture');
         },
-        frame : function() {
+        frame: function() {
             return this.fixture().find('iframe');
         },
-        window : function() {
+        window: function() {
             return this.frame()[0].contentWindow;
         },
-        retry : function() {
+        retry: function() {
             this._retry = true;
         },
-        global : function(name) {
+        global: function(name) {
             var window = this.window();
             if (name == 'window') {
                 return window;
             }
             return window[name];
         },
-        open : function(url) {
+        open: function(url) {
             (function(page) {
                 page.step('open ' + url, function() {
                     page.loaded = false;
@@ -234,7 +242,7 @@
                 });
             })(this);
         },
-        click : function(element) {
+        click: function(element) {
             element = $(element)
             if (!element.length) {
                 throw 'no element to click';
@@ -251,12 +259,21 @@
         }
     });
 
-    function executeTest(page) {
+    function executeTest(page, timestamp) {
         if (!page.steps.length) {
             return;
         }
         var step = page.steps.shift();
-        if(step.name) {
+
+        if (QUnit.timeoutPerTest) {
+            var currentTimestamp = new Date().getTime();
+            if (currentTimestamp - timestamp > QUnit.timeoutPerTest) {
+                QUnit.ok(false, 'Timeout: not found ' + step.incomplete(page).join(', '));
+                return;
+            }
+        }
+
+        if (step.name) {
             log('step', step.name);
         }
         page._retry = false;
@@ -270,7 +287,7 @@
         }
         setTimeout(function() {
             QUnit.start();
-            executeTest(page);
+            executeTest(page, timestamp);
         }, timeStep);
         QUnit.stop();
     }
@@ -287,7 +304,7 @@
     }
 
     function prepareBefore(page) {
-        for ( var i = 0; i < Page.befores.length; i++) {
+        for (var i = 0; i < Page.befores.length; i++) {
             page.step('before', Page.befores[i]);
         }
     }
@@ -298,8 +315,8 @@
         }
     }
 
-    function simpleAssert(page){
-        page.step('', function(){
+    function simpleAssert(page) {
+        page.step('', function() {
             QUnit.ok(1);
         });
     }
@@ -315,7 +332,7 @@
             func(page);
             prepareAfter(page);
             simpleAssert(page);
-            executeTest(page);
+            executeTest(page, new Date().getTime());
         });
     }
 
