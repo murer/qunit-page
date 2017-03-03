@@ -4,6 +4,8 @@ A QUnit extension that allows you to easily write clean UI tests.
 
 [![Build Status](https://snap-ci.com/murer/qunit-page/branch/master/build_image)](https://snap-ci.com/murer/qunit-page/branch/master)
 
+https://www.npmjs.com/package/qunit-page
+
 ## Features
 
 - **Avoid flaky tests** - QUnit Page test structure induces you to think considering the user perspective.
